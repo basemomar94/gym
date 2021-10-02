@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">gym</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign up</string>
+    <string name="pass">Password</string>
+    <string name="mail">Email</string>
+    <string name="dont">Don\'t have an account?</string>
+    <string name="creat">Creat a new account</string>
+</resources>
