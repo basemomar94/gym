@@ -4,32 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:elevation="5dp"
-    tools:context=".Dashboard"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Dashboard">
 
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="389dp"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_marginTop="28dp"
+        android:text="@string/morning"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageView6"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/user" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="185dp"
+        android:layout_height="126dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/qr" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="374dp">
 
         <ProgressBar
-            android:id="@+id/progressBar5"
+            android:id="@+id/progress"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="402dp"
-            android:layout_height="350dp"
+            android:layout_width="389dp"
+            android:layout_height="341dp"
             android:layout_gravity="center"
+            android:clickable="true"
             android:indeterminate="false"
             android:progressDrawable="@drawable/circle"
-            tools:progress="30" />
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:progress="50" />
+
+        <TextView
+            android:id="@+id/remaningdays"
+            android:layout_width="391dp"
+            android:layout_height="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="150dp"
+            android:text="40 days"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="391dp"
+        android:layout_height="57dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/plus"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:onClick="test"
+            android:text="Plan"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:onClick="test"
+            android:text="Button"
+            android:textColor="@color/blue" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="end"
+        android:text="Start your training"
+        android:textColor="@color/blue" />
 
 </LinearLayout>
