@@ -23,13 +23,21 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
 
         progressBar = findViewById(R.id.progress);
         remaining =findViewById(R.id.remaningdays);
         updateprogress();
+        final ActionBar actionBar = getSupportActionBar();
+
+
+
+        actionBar.setTitle("Home");
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,4 +103,8 @@ public class Dashboard extends AppCompatActivity {
     }
 
 
+    public void Training(View view) {
+        Intent intent = new Intent(Dashboard.this,Training.class);
+        startActivity(intent);
+    }
 }

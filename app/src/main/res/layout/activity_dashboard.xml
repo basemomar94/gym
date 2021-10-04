@@ -32,19 +32,19 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="185dp"
-        android:layout_height="126dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/qr" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="374dp">
+        android:layout_height="323dp">
 
         <ProgressBar
             android:id="@+id/progress"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="389dp"
-            android:layout_height="341dp"
+            android:layout_width="match_parent"
+            android:layout_height="306dp"
             android:layout_gravity="center"
             android:clickable="true"
             android:indeterminate="false"
@@ -65,39 +65,42 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
+    <Button
+
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="end"
+        android:onClick="Training"
+        android:text="Start your training"
+        android:textColor="@color/blue" />
+
     <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="391dp"
-        android:layout_height="57dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/plus"
-            android:layout_width="wrap_content"
+            android:id="@+id/button11"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:height="60dp"
             android:onClick="test"
-            android:text="Plan"
+            android:text="My plan"
             android:textColor="@color/blue" />
 
         <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
+            android:id="@+id/button12"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:onClick="test"
+            android:height="60dp"
             android:text="Button"
             android:textColor="@color/blue" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_gravity="end"
-        android:text="Start your training"
-        android:textColor="@color/blue" />
 
 </LinearLayout>
