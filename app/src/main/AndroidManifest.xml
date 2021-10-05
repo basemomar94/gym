@@ -12,19 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".Splash"
+            android:exported="true" />
+        <activity
             android:name=".Biceps"
             android:exported="true" />
         <activity
-            android:parentActivityName=".Dashboard"
             android:name=".Training"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Dashboard" />
         <activity
             android:name=".Signup"
             android:exported="true" />
         <activity
-            android:parentActivityName=".Dashboard"
             android:name=".Notifications"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Dashboard" />
         <activity
             android:name=".About"
             android:exported="true" />
