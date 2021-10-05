@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity {
 
-    ProgressBar progressBar;
-    Integer progressnum=30;
+    public ProgressBar progressBar;
+    public Integer progressnum = 25;
     TextView remaining;
 
 
@@ -91,20 +91,31 @@ public class Dashboard extends AppCompatActivity {
         //updateprogress();
     }
 
-    void updateprogress (){
+    public void updateprogress() {
         progressBar.setMax(30);
-        if (progressnum<=0){
+        if (progressnum <= 0) {
             remaining.setText("Please subscribe!");
 
+        } else {
+            remaining.setText(progressnum + " days remaining");
+            progressBar.setProgress(progressnum);
         }
-        else { remaining.setText(progressnum +" days remaining");
-            progressBar.setProgress(progressnum);}
 
     }
 
 
     public void Training(View view) {
-        Intent intent = new Intent(Dashboard.this,Training.class);
+        Intent intent = new Intent(Dashboard.this, Training.class);
         startActivity(intent);
+    }
+
+    public void plandetails(View view) {
+        gotoPlanDetails();
+    }
+
+    void gotoPlanDetails() {
+        Intent intent = new Intent(Dashboard.this, Subscribtion_info.class);
+        startActivity(intent);
+
     }
 }

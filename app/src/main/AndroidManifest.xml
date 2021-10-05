@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".Subscribtion_info"
+            android:exported="true"
+            android:parentActivityName=".Dashboard" />
+        <activity
             android:name=".Splash"
             android:exported="true" />
         <activity

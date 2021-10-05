@@ -15,7 +15,7 @@
         android:id="@+id/textView5"
         android:layout_width="389dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="5dp"
         android:text="@string/morning"
         android:textAlignment="center"
         android:textColor="@color/blue"
@@ -37,43 +37,66 @@
         android:layout_weight=".1"
         app:srcCompat="@drawable/qr" />
 
-    <RelativeLayout
-        android:layout_height="0dp"
-
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="5dp">
 
-        <ProgressBar
-
-            android:id="@+id/progress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="306dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="38dp"
-            android:layout_marginEnd="3dp"
-            android:clickable="true"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/circle"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:progress="50" />
 
-        <TextView
-            android:id="@+id/remaningdays"
-            android:layout_width="391dp"
-            android:layout_height="56dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="184dp"
-            android:text="40 days"
-            android:textAlignment="center"
-            android:textColor="@color/blue"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ProgressBar
+
+                android:id="@+id/progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="306dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="3dp"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:indeterminate="false"
+                android:onClick="plandetails"
+                android:progressDrawable="@drawable/circle"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:progress="50" />
+
+            <TextView
+                android:id="@+id/remaningdays"
+                android:layout_width="391dp"
+                android:layout_height="56dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="184dp"
+                android:onClick="plandetails"
+                android:text="40 days"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="1dp"
+                android:onClick="plandetails"
+                android:text="Plan details"
+                android:textColor="@color/blue" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <Button
 
