@@ -20,6 +20,7 @@
             android:exported="true" />
         <activity
             android:name=".TrainingView"
+            android:parentActivityName=".Training"
             android:exported="true" />
         <activity
             android:name=".Training"

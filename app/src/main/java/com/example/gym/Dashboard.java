@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ public class Dashboard extends AppCompatActivity {
     public ProgressBar progressBar;
     public Integer progressnum = 25;
     TextView remaining;
+    Dialog dialog;
 
 
     @Override
@@ -26,13 +30,10 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
 
-
         progressBar = findViewById(R.id.progress);
-        remaining =findViewById(R.id.remaningdays);
+        remaining = findViewById(R.id.remaningdays);
         updateprogress();
         final ActionBar actionBar = getSupportActionBar();
-
-
 
         actionBar.setTitle("Home");
 
@@ -53,6 +54,8 @@ public class Dashboard extends AppCompatActivity {
 
             case R.id.aboutt: {
                 gotoabout();
+
+                break;
             }
             case R.id.notifi: {
                 gotonotif();
@@ -78,17 +81,16 @@ public class Dashboard extends AppCompatActivity {
     public void test(View view) {
 
 
-        if (progressnum<=30){
-            progressnum=progressnum-1;
+        if (progressnum <= 30) {
+            progressnum = progressnum - 1;
             updateprogress();
 
-        }
-        else {
-            progressnum=0;
-            progressnum=progressnum+1;
+        } else {
+            progressnum = 0;
+            progressnum = progressnum + 1;
             updateprogress();
         }
-       // progressnum=progressnum+10;
+        // progressnum=progressnum+10;
         //updateprogress();
     }
 
@@ -117,6 +119,18 @@ public class Dashboard extends AppCompatActivity {
     void gotoPlanDetails() {
         Intent intent = new Intent(Dashboard.this, Subscribtion_info.class);
         startActivity(intent);
+
+    }
+
+    public void QronClick(View view) {
+
+        dialog = new Dialog(Dashboard.this);
+        dialog.setContentView(R.layout.qr);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.qr_background));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+        System.out.println("Qr works");
 
     }
 }

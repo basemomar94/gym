@@ -6,5 +6,12 @@
         <item name="android:layout_height">60dp</item>
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:windowAnimationStyle">@style/animation</item>
+    </style>
+
+    <style name="animation">
+
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.gym;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,25 @@ public class Notifications extends AppCompatActivity {
         notificationAdapter = new NotificationAdapter(this, notificationitems);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(notificationAdapter);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerView.OnItemTouchListener() {
+                    @Override
+                    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+                    }
+
+                    @Override
+                    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                    }
+                }
+
+        );
     }
 
 
