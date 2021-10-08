@@ -19,7 +19,7 @@
             android:name=".Splash"
             android:exported="true" />
         <activity
-            android:name=".Biceps"
+            android:name=".TrainingView"
             android:exported="true" />
         <activity
             android:name=".Training"
