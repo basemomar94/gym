@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity {
 
+
     public ProgressBar progressBar;
     public Integer progressnum = 25;
     TextView remaining;
