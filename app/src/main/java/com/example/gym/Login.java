@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG).show();
-                        //  goToDashboard();
+                        goToDashboard();
                         loading.setVisibility(View.INVISIBLE);
                     } else {
                         Toast.makeText(Login.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
