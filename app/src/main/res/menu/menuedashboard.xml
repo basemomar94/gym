@@ -8,7 +8,10 @@
         android:title="notifications"
         app:showAsAction="always" />
     <item
-        android:id="@+id/aboutt"
+        android:id="@+id/about"
         android:title="about" />
     <item android:title="setting" />
+    <item
+        android:id="@+id/logout"
+        android:title="log out" />
 </menu>

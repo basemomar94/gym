@@ -1,5 +1,6 @@
 package com.example.gym;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,11 +8,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
 
     EditText mail_log;
     EditText pass_log;
+    FirebaseAuth mAuth;
+    ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +30,35 @@ public class Login extends AppCompatActivity {
         mail_log = findViewById(R.id.mail_log);
         pass_log = findViewById(R.id.pass_log);
 
+
+        mAuth = FirebaseAuth.getInstance();
+        loading = findViewById(R.id.loading);
+
     }
 
     public void loginlogin(View view) {
+
+
         String checkmail = mail_log.toString();
         System.out.println("I am fine");
 
 
-        if (mail_log.getText().toString().trim().length() > 8 && pass_log.getText().toString().trim().length() > 8) {
+        if (mail_log.getText().toString().trim().length() > 5 && pass_log.getText().toString().trim().length() > 5) {
+            loading.setVisibility(View.VISIBLE);
 
-            goToDashboard();
+            mAuth.signInWithEmailAndPassword(mail_log.getText().toString().trim(), pass_log.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG);
+                        goToDashboard();
+                    }
+
+                }
+            });
+            loading.setVisibility(View.INVISIBLE);
+
+
         }
         if (mail_log.getText().toString().trim().length() < 8 && !checkmail.contains("@")) {
             mail_log.setError("Please enter your mail");

@@ -11,9 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -22,12 +23,14 @@ public class Dashboard extends AppCompatActivity {
     public Integer progressnum = 25;
     TextView remaining;
     Dialog dialog;
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        mAuth = FirebaseAuth.getInstance();
 
 
         progressBar = findViewById(R.id.progress);
@@ -52,15 +55,23 @@ public class Dashboard extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.aboutt: {
+            case R.id.about: {
                 gotoabout();
 
                 break;
             }
             case R.id.notifi: {
                 gotonotif();
+                break;
+
 
             }
+            case R.id.logout: {
+                mAuth.signOut();
+                gotofirstScreen();
+
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -130,7 +141,15 @@ public class Dashboard extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-        System.out.println("Qr works");
+
 
     }
+
+    void gotofirstScreen() {
+        Intent intent = new Intent(Dashboard.this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+
 }

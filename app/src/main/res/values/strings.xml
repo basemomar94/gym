@@ -18,4 +18,20 @@
     <string name="about">In 1970, Gold sold the at-the-time failing gym to Bud Danits, most commonly known as an antique dealer, and Dave Saxe, a jeweler. They ran the gym for almost two years together as co-owners, and when they realized that this operation was not plausible for them, they were going to close it and reopen the location as an antiques shop. They offered it to a frequently visiting gym member, Ken Sprague, who purchased it in late 1971, and Gold\'s was saved as a gym. Sprague was the first owner of Gold\'s to actually sponsor and hold bodybuilding competitions, and his promotional skills and film industry contacts helped build the establishment\'s profile.  By 1975, when George Butler was going to film the docudrama Pumping Iron (1977), it was Sprague\'s savvy, telling Butler that he would paint the windows over to minimize back light, and let Butler mount a lighting grid to the inside ceiling that made Gold\'s Gym the primary location for filming Pumping Iron, which brought attention not only to the gym itself but also to bodybuilding and physique in general. After the release of the movie, and along with the 1977 Mr. America contest and Mr. America Day parade held in Santa Monica, sponsored and conceived of by Sprague, the profile of Gold\'s gym grew even larger. That year\'s Mr. America had more press requests than the 1977 Academy Awards. By 1979, when Sprague had sold Gold\'s Gym, it was the most famous gym in the world.[7] To this day, Gold\'s Gym is considered a landmark in bodybuilding culture[8] and has achieved cult status.[9]</string>
     <string name="renew">Don\'t forget to renew your subscribtion after 15 days</string>
     <string name="morning">Good Morinig Bassem ☀️</string>
+    <integer-array name="img_id_arr">
+        <item>@drawable/img2</item>
+
+    </integer-array>
+    <string name="title_activity_drawer">Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
 </resources>

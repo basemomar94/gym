@@ -6,6 +6,7 @@
         <entry key="..\:/gym/app/AndroidImagePopup-master/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
         <entry key="..\:/gym/app/src/main/res/drawable/circle.xml" value="0.22135416666666666" />
         <entry key="..\:/gym/app/src/main/res/drawable/gold_background.xml" value="0.3828125" />
+        <entry key="..\:/gym/app/src/main/res/drawable/img2.xml" value="0.2375" />
         <entry key="..\:/gym/app/src/main/res/drawable/qr_background.xml" value="0.3828125" />
         <entry key="..\:/gym/app/src/main/res/drawable/simplecircle.xml" value="0.22135416666666666" />
         <entry key="..\:/gym/app/src/main/res/drawable/simplecirclue.xml" value="0.22135416666666666" />
@@ -16,13 +17,20 @@
         <entry key="..\:/gym/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_notifications.xml" value="0.21965579710144928" />
-        <entry key="..\:/gym/app/src/main/res/layout/activity_signup.xml" value="0.2" />
+        <entry key="..\:/gym/app/src/main/res/layout/activity_signup.xml" value="0.31280388978930307" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_subscribtion_info.xml" value="0.33" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_training.xml" value="0.25" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_trainingview.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/app_bar_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/content_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/nav_head.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/nav_header_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/layout/notificationitem.xml" value="0.33" />
         <entry key="..\:/gym/app/src/main/res/layout/qr.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/menu/drawmenue.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/menu/menue.xml" value="0.3145833333333333" />
         <entry key="..\:/gym/app/src/main/res/menu/menuedashboard.xml" value="0.3145833333333333" />
         <entry key="..\:/gym/app/src/main/res/mipmap-anydpi-v26/gold.xml" value="0.3828125" />
