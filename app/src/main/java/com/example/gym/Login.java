@@ -32,15 +32,11 @@ public class Login extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        loading = findViewById(R.id.loading);
+        loading = findViewById(R.id.loading_log);
 
     }
 
     public void loginlogin(View view) {
-
-
-        String checkmail = mail_log.toString();
-        System.out.println("I am fine");
 
 
         if (mail_log.getText().toString().trim().length() > 5 && pass_log.getText().toString().trim().length() > 5) {
@@ -50,24 +46,27 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG);
-                        goToDashboard();
+                        Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG).show();
+                        //  goToDashboard();
+                        loading.setVisibility(View.INVISIBLE);
+                    } else {
+                        Toast.makeText(Login.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
 
                 }
             });
-            loading.setVisibility(View.INVISIBLE);
 
 
         }
-        if (mail_log.getText().toString().trim().length() < 8 && !checkmail.contains("@")) {
+        if (mail_log.getText().toString().trim().length() < 5) {
             mail_log.setError("Please enter your mail");
         }
-        if (pass_log.getText().toString().trim().length() < 8) {
+        if (pass_log.getText().toString().trim().length() < 5) {
             pass_log.setError("Please enter your password");
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
