@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".Profile"
+            android:exported="true"
+            android:parentActivityName=".Dashboard" />
+        <activity
             android:name=".Subscribtion_info"
             android:exported="true"
             android:parentActivityName=".Dashboard" />
@@ -54,6 +58,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".FirebaseNotification"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

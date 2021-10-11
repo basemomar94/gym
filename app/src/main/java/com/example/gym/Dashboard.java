@@ -148,8 +148,13 @@ public class Dashboard extends AppCompatActivity {
     void gotofirstScreen() {
         Intent intent = new Intent(Dashboard.this, MainActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
 
+    public void profilepic(View view) {
+        Intent intent = new Intent(Dashboard.this, Profile.class);
+        startActivity(intent);
+    }
 }

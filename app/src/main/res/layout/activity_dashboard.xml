@@ -38,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_marginTop="16dp"
-                app:srcCompat="@drawable/user" />
+                android:onClick="profilepic"
+                app:srcCompat="@drawable/profile" />
 
             <ImageView
                 android:id="@+id/Qr"
@@ -87,8 +88,9 @@
                         android:layout_height="56dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="9dp"
-                        android:layout_marginTop="184dp"
+                        android:layout_marginStart="-1dp"
+                        android:layout_marginTop="185dp"
+                        android:gravity="center"
                         android:onClick="plandetails"
                         android:text="40 days"
                         android:textAlignment="center"
