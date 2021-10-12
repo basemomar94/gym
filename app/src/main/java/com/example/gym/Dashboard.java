@@ -1,6 +1,7 @@
 package com.example.gym;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,22 +16,39 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class Dashboard extends AppCompatActivity {
 
 
     public ProgressBar progressBar;
     public Integer progressnum = 25;
-    TextView remaining;
+    TextView remaining, welcome;
     Dialog dialog;
-    private FirebaseAuth mAuth;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    String userID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        welcome = findViewById(R.id.welcome);
+        userID = firebaseAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                welcome.setText("Welcome " + value.getString("fname"));
+            }
+        });
 
 
         progressBar = findViewById(R.id.progress);
@@ -67,7 +85,7 @@ public class Dashboard extends AppCompatActivity {
 
             }
             case R.id.logout: {
-                mAuth.signOut();
+                firebaseAuth.signOut();
                 gotofirstScreen();
 
             }

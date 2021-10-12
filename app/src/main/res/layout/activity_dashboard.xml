@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/welcome"
                 android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,6 +37,7 @@
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:onClick="profilepic"
                 app:srcCompat="@drawable/profile" />
