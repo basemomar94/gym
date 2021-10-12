@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,6 +24,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.zxing.WriterException;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -29,9 +36,11 @@ public class Dashboard extends AppCompatActivity {
     public Integer progressnum = 25;
     TextView remaining, welcome;
     Dialog dialog;
+    ImageView Qr;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     String userID;
+    Bitmap GeneratedQr;
 
 
     @Override
@@ -41,6 +50,7 @@ public class Dashboard extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         welcome = findViewById(R.id.welcome);
+        Qr = findViewById(R.id.Qr);
         userID = firebaseAuth.getCurrentUser().getUid();
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -57,6 +67,7 @@ public class Dashboard extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
 
         actionBar.setTitle("Home");
+        Generate_Qr();
 
 
     }
@@ -155,6 +166,7 @@ public class Dashboard extends AppCompatActivity {
 
         dialog = new Dialog(Dashboard.this);
         dialog.setContentView(R.layout.qr);
+
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.qr_background));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
@@ -174,5 +186,23 @@ public class Dashboard extends AppCompatActivity {
     public void profilepic(View view) {
         Intent intent = new Intent(Dashboard.this, Profile.class);
         startActivity(intent);
+    }
+
+    void Generate_Qr() {
+        // Initializing the QR Encoder with your value to be encoded, type you required and Dimension
+        QRGEncoder qrgEncoder = new QRGEncoder(userID, null, QRGContents.Type.TEXT, 500);
+        qrgEncoder.setColorBlack(Color.BLACK);
+        qrgEncoder.setColorWhite(Color.WHITE);
+        try {
+            // Getting QR-Code as Bitmap
+            Bitmap grBits = qrgEncoder.getBitmap();
+
+            // Setting Bitmap to ImageView
+            Qr.setImageBitmap(grBits);
+            GeneratedQr = grBits;
+        } catch (Exception e) {
+
+        }
+
     }
 }
