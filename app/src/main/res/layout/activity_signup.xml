@@ -79,19 +79,6 @@
                 android:padding="5dp" />
 
             <EditText
-                android:id="@+id/phone_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/text_edit"
-                android:ems="10"
-                android:hint="Phone number"
-
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp"
-                android:padding="5dp" />
-
-            <EditText
                 android:id="@+id/password_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,6 +101,19 @@
                 android:ems="10"
                 android:hint="Confirm password"
                 android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/phone_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/text_edit"
+                android:ems="10"
+                android:hint="Phone number"
+
+                android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:padding="5dp" />
 

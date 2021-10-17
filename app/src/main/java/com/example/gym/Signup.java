@@ -39,8 +39,8 @@ public class Signup extends AppCompatActivity {
     TextView weightvalue;
     EditText fnmae;
     EditText lname;
-    Integer height;
-    Integer weight;
+    Integer height = 170;
+    Integer weight = 70;
     EditText email;
     EditText password;
     EditText phone;
@@ -112,17 +112,31 @@ public class Signup extends AppCompatActivity {
     //Signup
     public void signupp(View view) {
 
-        loading.setVisibility(View.VISIBLE);
 
-
-        if (email.getText().toString().trim().length() < 0) {
+        if (email.getText().toString().trim().length() == 0) {
             email.setError("Please enter your email");
-            return;
+
         }
-        if (password.getText().toString().trim().length() < 0) {
+        if (password.getText().toString().trim().length() == 0) {
             password.setError("Please enter your password");
-            return;
-        } else {
+
+
+        }
+        if (fnmae.getText().toString().trim().length() == 0) {
+            fnmae.setError("please enter your first name");
+        }
+        if (lname.getText().toString().trim().length() == 0) {
+            lname.setError("please enter your last name");
+
+        }
+        if (phone.getText().toString().trim().length() == 0) {
+            phone.setError("Please enter your phone number");
+
+
+        }
+
+        if (email.getText().toString().trim().length() != 0 && password.getText().toString().trim().length() != 0) {
+            loading.setVisibility(View.VISIBLE);
             try {
 
 
@@ -140,48 +154,14 @@ public class Signup extends AppCompatActivity {
                             DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                             Map<String, Object> users = new HashMap<>();
 
-
-                            if (fnmae.getText().toString().trim().length() != 0) {
-
-                                users.put("fname", fnmae.getText().toString().trim());
-
-                            } else {
-                                fnmae.setError("Please enter your first name");
-                            }
-
-                            if (lname.getText().toString().trim().length() != 0) {
-
-                                users.put("fname", fnmae.getText().toString().trim());
-
-                            } else {
-                                lname.setError("Please enter your last name");
-                            }
-
-                            if (email.getText().toString().trim().length() != 0) {
-                                users.put("mail", email.getText().toString().trim());
-
-
-                            } else {
-                                email.setError("Please enter your email");
-                            }
-                            if (phone.getText().toString().trim().length() != 0) {
-                                users.put("phone", phone.getText().toString().trim());
-
-
-                            } else {
-                                phone.setError("Please enter your phone");
-                            }
-
-                            if (password.getText().toString().trim().length() != 0) {
-                                users.put("password", password.getText().toString().trim());
-
-
-                            } else {
-                                email.setError("Please enter your password");
-                            }
-
+                            users.put("fname", fnmae.getText().toString().trim());
+                            users.put("lname", lname.getText().toString().trim());
+                            users.put("mail", email.getText().toString().trim());
+                            users.put("phone", phone.getText().toString().trim());
+                            users.put("password", password.getText().toString().trim());
                             users.put("height", height.toString());
                             users.put("weight", weight.toString());
+
 
                             documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
