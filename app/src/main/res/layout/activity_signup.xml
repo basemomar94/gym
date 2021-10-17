@@ -113,7 +113,7 @@
                 android:ems="10"
                 android:hint="Phone number"
 
-                android:inputType="textEmailAddress"
+                android:inputType="number"
                 android:minHeight="48dp"
                 android:padding="5dp" />
 
@@ -126,7 +126,7 @@
                 android:background="@drawable/text_edit"
                 android:ems="10"
                 android:hint="Date of birth"
-                android:inputType="textPassword"
+                android:inputType="date"
                 android:minHeight="48dp"
                 android:padding="5dp" />
 

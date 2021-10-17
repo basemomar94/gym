@@ -186,8 +186,10 @@ public class Dashboard extends AppCompatActivity {
     public void profilepic(View view) {
         Intent intent = new Intent(Dashboard.this, Profile.class);
         startActivity(intent);
+
     }
 
+    //Generating Qr
     void Generate_Qr() {
         // Initializing the QR Encoder with your value to be encoded, type you required and Dimension
         QRGEncoder qrgEncoder = new QRGEncoder(userID, null, QRGContents.Type.TEXT, 1000);

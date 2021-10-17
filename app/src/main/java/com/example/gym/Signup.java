@@ -68,7 +68,8 @@ public class Signup extends AppCompatActivity {
         weightvalue = (TextView) findViewById(R.id.weightvalue);
         weight_picker.setMaxValue(300);
         weight_picker.setMinValue(30);
-        weight_picker.setValue(70);
+        weight_picker.setValue(weight);
+        // height_picker.setValue(height);
         loading = findViewById(R.id.loading);
 
 
@@ -174,6 +175,7 @@ public class Signup extends AppCompatActivity {
 
                             Intent intent = new Intent(Signup.this, Dashboard.class);
                             startActivity(intent);
+                            finish();
                             loading.setVisibility(View.INVISIBLE);
                         } else {
 
