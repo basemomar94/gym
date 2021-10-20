@@ -52,6 +52,7 @@ public class Profile extends AppCompatActivity {
                 mail.setText("Email : " + value.getString("mail"));
                 height.setText("Height : " + value.getString("height"));
                 mobile.setText("Phone number : " + value.getString("phone"));
+                age.setText("Birth date : " + value.getString("age"));
 
 
             }

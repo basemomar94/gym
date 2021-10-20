@@ -1,12 +1,12 @@
 package com.example.gym;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -35,21 +35,17 @@ public class Signup extends AppCompatActivity {
     NumberPicker height_picker;
     NumberPicker weight_picker;
     NumberPicker agepicker;
-    TextView heighttext;
-    TextView weightvalue;
-    EditText fnmae;
-    EditText lname;
+    TextView heighttext, weightvalue, bitrhdaydate;
+    EditText fnmae, lname, email, password, phone, birth;
     Integer height = 170;
     Integer weight = 70;
-    EditText email;
-    EditText password;
-    EditText phone;
     String userID;
     SeekBar seekBar;
     ProgressBar loading;
     FirebaseFirestore firebaseFirestore;
     DatePickerDialog.OnDateSetListener dateSetListener;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +58,6 @@ public class Signup extends AppCompatActivity {
         password = findViewById(R.id.password_signup);
         fnmae = findViewById(R.id.firstname_ET);
         lname = findViewById(R.id.lastname_ET);
-
         phone = findViewById(R.id.phone_signup);
         weight_picker = findViewById(R.id.weight_picker);
         weightvalue = (TextView) findViewById(R.id.weightvalue);
@@ -71,6 +66,39 @@ public class Signup extends AppCompatActivity {
         weight_picker.setValue(weight);
         // height_picker.setValue(height);
         loading = findViewById(R.id.loading);
+        bitrhdaydate = findViewById(R.id.Birthdaydate);
+
+
+        //Birth Date Selector
+        bitrhdaydate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Signup.this,
+                        android.R.style.Theme_Holo_Light,
+                        dateSetListener, year, month, day
+                );
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+
+            }
+        });
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                month = month + 1;
+
+                String birthdate = day + "/" + month + "/" + year;
+                bitrhdaydate.setText(birthdate);
+
+
+            }
+        };
 
 
         //Weight
@@ -110,7 +138,7 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    //Signup
+    //Signup Button
     public void signupp(View view) {
 
 
@@ -137,7 +165,9 @@ public class Signup extends AppCompatActivity {
         }
 
         if (email.getText().toString().trim().length() != 0 && password.getText().toString().trim().length() != 0) {
+
             loading.setVisibility(View.VISIBLE);
+
             try {
 
 
@@ -162,6 +192,8 @@ public class Signup extends AppCompatActivity {
                             users.put("password", password.getText().toString().trim());
                             users.put("height", height.toString());
                             users.put("weight", weight.toString());
+                            users.put("age", bitrhdaydate.getText().toString().trim());
+                            loading.setVisibility(View.INVISIBLE);
 
 
                             documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -176,7 +208,7 @@ public class Signup extends AppCompatActivity {
                             Intent intent = new Intent(Signup.this, Dashboard.class);
                             startActivity(intent);
                             finish();
-                            loading.setVisibility(View.INVISIBLE);
+
                         } else {
 
                             Toast.makeText(Signup.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
@@ -204,23 +236,9 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    void errors(EditText field, Map users, String value) {
-        if (field.getText().toString().trim().length() == 0) {
-            field.setError("You have to compelete this");
-        } else users.put(value, field.getText().toString().trim());
-    }
-
-    // Data base
-    void injectData() {
 
 
-    }
 
-    // Auth
-    void auth() {
 
-    }
-
-    // Date
 
 }
