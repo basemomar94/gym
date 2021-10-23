@@ -6,7 +6,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.zxing.WriterException;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
@@ -34,13 +39,15 @@ public class Dashboard extends AppCompatActivity {
 
     public ProgressBar progressBar;
     public Integer progressnum = 25;
-    TextView remaining, welcome;
+    TextView remaining, welcome, offer;
     Dialog dialog;
     ImageView Qr;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     String userID;
     Bitmap GeneratedQr;
+    String days_string = "0";
+    int days_number;
 
 
     @Override
@@ -48,17 +55,33 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         firebaseAuth = FirebaseAuth.getInstance();
+        Calendar timeofday = Calendar.getInstance();
+       /*
+       timeofday.set(Calendar.HOUR_OF_DAY,12);
+       timeofday.set(Calendar.MINUTE,0);
+       timeofday.set(Calendar.SECOND,0);
+       timeofday.set(Calendar.AM_PM,Calendar.AM);
+       Long currenttime = new Date().getTime();
+       if ()*/
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         welcome = findViewById(R.id.welcome);
         Qr = findViewById(R.id.Qr);
+        offer = findViewById(R.id.offer);
         userID = firebaseAuth.getCurrentUser().getUid();
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        days_number = sharedPreferences.getInt("days", Integer.parseInt("0"));
+
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 welcome.setText("Welcome " + value.getString("fname"));
+
+
             }
         });
+
 
 
         progressBar = findViewById(R.id.progress);
@@ -68,6 +91,7 @@ public class Dashboard extends AppCompatActivity {
 
         actionBar.setTitle("Home");
         Generate_Qr();
+        get_message();
 
 
     }
@@ -134,14 +158,16 @@ public class Dashboard extends AppCompatActivity {
         //updateprogress();
     }
 
+    //progress circule
+
     public void updateprogress() {
         progressBar.setMax(30);
         if (progressnum <= 0) {
             remaining.setText("Please subscribe!");
 
         } else {
-            remaining.setText(progressnum + " days remaining");
-            progressBar.setProgress(progressnum);
+            remaining.setText(days_number + " days remaining");
+            progressBar.setProgress(days_number);
         }
 
     }
@@ -206,5 +232,17 @@ public class Dashboard extends AppCompatActivity {
 
         }
 
+    }
+
+    void get_message() {
+        DocumentReference documentReference = firebaseFirestore.collection("message").document("message");
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                offer.setText(value.getString("message"));
+
+            }
+        });
     }
 }

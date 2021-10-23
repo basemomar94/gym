@@ -3,7 +3,7 @@
 <item>
     <shape
         android:shape="ring"
-        android:thicknessRatio="25"
+        android:thicknessRatio="55"
         android:useLevel="false"
 
         >
@@ -15,7 +15,7 @@
     <item>
         <shape
             android:shape="ring"
-            android:thicknessRatio="20"
+            android:thicknessRatio="50"
             android:useLevel="true"
 
 

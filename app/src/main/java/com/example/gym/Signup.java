@@ -1,12 +1,17 @@
 package com.example.gym;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -24,7 +29,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,6 +55,7 @@ public class Signup extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     DatePickerDialog.OnDateSetListener dateSetListener;
     private FirebaseAuth mAuth;
+    Uri image;
 
 
     @Override
@@ -192,8 +203,15 @@ public class Signup extends AppCompatActivity {
                             users.put("password", password.getText().toString().trim());
                             users.put("height", height.toString());
                             users.put("weight", weight.toString());
+                            users.put("daysnumber", 30);
+
+
                             users.put("age", bitrhdaydate.getText().toString().trim());
                             loading.setVisibility(View.INVISIBLE);
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("days", 30);
+                            editor.commit();
 
 
                             documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -231,14 +249,22 @@ public class Signup extends AppCompatActivity {
     }
 
     public void camera(View view) {
-        Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        startActivity(intent);
+        uploadimage();
 
     }
 
+    void uploadimage() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("uploading..");
+        progressDialog.show();
+        if (image != null) {
+            //   StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("upload").child(System.currentTimeMillis()+"."+getfile());
+        }
+    }
 
+    void getfile() {
 
-
+    }
 
 
 }

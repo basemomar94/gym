@@ -30,7 +30,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/upload"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="@drawable/camera"

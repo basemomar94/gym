@@ -14,12 +14,18 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Profile extends AppCompatActivity {
 
     TextView fname, lname, mail, mobile, height, weight, age;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     String userID;
+    Date currentdate;
+    String userbirthdate;
 
 
     @Override
@@ -37,6 +43,8 @@ public class Profile extends AppCompatActivity {
         height = findViewById(R.id.height_prof);
         weight = findViewById(R.id.weight_prof);
         age = findViewById(R.id.age_prof);
+        getCurrentDate();
+        System.out.println(currentdate);
 
         //Get user id
         userID = firebaseAuth.getCurrentUser().getUid();
@@ -53,10 +61,22 @@ public class Profile extends AppCompatActivity {
                 height.setText("Height : " + value.getString("height"));
                 mobile.setText("Phone number : " + value.getString("phone"));
                 age.setText("Birth date : " + value.getString("age"));
+                userbirthdate = value.getString("age");
+                System.out.println(userbirthdate + "HBD");
 
 
             }
         });
+
+
+    }
+
+    private String getCurrentDate() {
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+        // currentdate=date
 
 
     }
