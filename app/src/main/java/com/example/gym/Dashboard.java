@@ -48,6 +48,8 @@ public class Dashboard extends AppCompatActivity {
     Bitmap GeneratedQr;
     String days_string = "0";
     int days_number;
+    Double days_Double;
+    Integer days_int;
 
 
     @Override
@@ -78,18 +80,26 @@ public class Dashboard extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 welcome.setText("Welcome " + value.getString("fname"));
 
+                //  days_string=value.getString("daysnumber");
+                days_Double = value.getDouble("daysnumber");
+
+                System.out.println("days" + days_Double);
+                updateprogress();
+
 
             }
         });
 
 
 
+
         progressBar = findViewById(R.id.progress);
         remaining = findViewById(R.id.remaningdays);
-        updateprogress();
+
         final ActionBar actionBar = getSupportActionBar();
 
         actionBar.setTitle("Home");
+
         Generate_Qr();
         get_message();
 
@@ -113,12 +123,7 @@ public class Dashboard extends AppCompatActivity {
 
                 break;
             }
-            case R.id.notifi: {
-                gotonotif();
-                break;
 
-
-            }
             case R.id.logout: {
                 firebaseAuth.signOut();
                 gotofirstScreen();
@@ -142,33 +147,25 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    public void test(View view) {
 
-
-        if (progressnum <= 30) {
-            progressnum = progressnum - 1;
-            updateprogress();
-
-        } else {
-            progressnum = 0;
-            progressnum = progressnum + 1;
-            updateprogress();
-        }
-        // progressnum=progressnum+10;
-        //updateprogress();
-    }
 
     //progress circule
 
     public void updateprogress() {
-        progressBar.setMax(30);
-        if (progressnum <= 0) {
-            remaining.setText("Please subscribe!");
 
-        } else {
-            remaining.setText(days_number + " days remaining");
-            progressBar.setProgress(days_number);
+        progressBar.setMax(30);
+        progressBar.setProgress(days_Double.intValue());
+        if (days_Double != null) {
+            days_int = days_Double.intValue();
+            remaining.setText(days_int.toString() + " days");
+
+
         }
+        if (days_int == 0) {
+            progressBar.setVisibility(View.INVISIBLE);
+            remaining.setText("Click here to renew your subscribtion");
+        }
+
 
     }
 
