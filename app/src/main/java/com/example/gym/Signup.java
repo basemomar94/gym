@@ -1,67 +1,86 @@
 package com.example.gym;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 public class Signup extends AppCompatActivity {
-    NumberPicker height_picker;
-    NumberPicker weight_picker;
-    NumberPicker agepicker;
-    TextView heighttext, weightvalue, bitrhdaydate;
-    EditText fnmae, lname, email, password, phone, birth;
-    Integer height = 170;
-    Integer weight = 70;
-    String userID;
-    SeekBar seekBar;
-    ProgressBar loading;
-    FirebaseFirestore firebaseFirestore;
-    DatePickerDialog.OnDateSetListener dateSetListener;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private NumberPicker weight_picker;
+    private TextView heighttext, weightvalue, bitrhdaydate;
+    private EditText fnmae, lname, email, password, phone, birth;
+    private Integer height = 170;
+    private Integer weight = 70;
+    private String userID;
+    private SeekBar seekBar;
+    private ProgressBar loading, uploading;
+    private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth mAuth;
-    Uri image;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private Uri image;
+    private RadioGroup planradio;
+    private int daysofsub;
+    private Button chooseimage, uploadimage;
+    private ImageView profileimage;
+    private StorageReference storageReference;
+    private DatabaseReference firebaseDatabase;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        storageReference = FirebaseStorage.getInstance().getReference("image");
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference("image");
+
+
+        chooseimage = findViewById(R.id.choosephoto);
+        uploadimage = findViewById(R.id.uploadphoto);
+        profileimage = findViewById(R.id.profileimage);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -78,6 +97,30 @@ public class Signup extends AppCompatActivity {
         // height_picker.setValue(height);
         loading = findViewById(R.id.loading);
         bitrhdaydate = findViewById(R.id.Birthdaydate);
+        planradio = findViewById(R.id.planradio);
+
+        //choose plan
+
+        planradio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+                    case R.id.onemonth:
+                        daysofsub = 30;
+                        break;
+                    case R.id.three_months:
+                        daysofsub = 90;
+                        break;
+                    case R.id.sixmonths:
+                        daysofsub = 180;
+                        break;
+
+                }
+
+
+            }
+        });
 
 
         //Birth Date Selector
@@ -153,6 +196,9 @@ public class Signup extends AppCompatActivity {
     public void signupp(View view) {
 
 
+        System.out.println(daysofsub + "check days");
+
+
         if (email.getText().toString().trim().length() == 0) {
             email.setError("Please enter your email");
 
@@ -203,29 +249,19 @@ public class Signup extends AppCompatActivity {
                             users.put("password", password.getText().toString().trim());
                             users.put("height", height.toString());
                             users.put("weight", weight.toString());
-                            users.put("daysnumber", 30);
-
-
-                            users.put("age", bitrhdaydate.getText().toString().trim());
-                            loading.setVisibility(View.INVISIBLE);
-                            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("days", 30);
-                            editor.commit();
-
-
+                            users.put("daysnumber", daysofsub);
                             documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+                                    ToFireNew();
 
 
                                 }
                             });
+                            System.out.println(daysofsub);
 
 
-                            Intent intent = new Intent(Signup.this, Dashboard.class);
-                            startActivity(intent);
-                            finish();
+
 
                         } else {
 
@@ -243,28 +279,69 @@ public class Signup extends AppCompatActivity {
         }
 
 
-        System.out.println("hello  " + email.getText());
-
-
     }
 
     public void camera(View view) {
-        uploadimage();
+        chooseimage();
 
     }
 
-    void uploadimage() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("uploading..");
-        progressDialog.show();
-        if (image != null) {
-            //   StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("upload").child(System.currentTimeMillis()+"."+getfile());
+
+    private void chooseimage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == PICK_IMAGE_REQUEST && data != null && resultCode == RESULT_OK) {
+
+            image = data.getData();
+            profileimage.setImageURI(image);
+
+        } else {
+            System.out.println("FAIL");
         }
+
+
     }
 
-    void getfile() {
+
+    void ToFireNew() {
+
+        if (image != null) {
+            StorageReference profileupload = storageReference.child("profile/" + userID);
+            profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Signup.this, "Done", Toast.LENGTH_LONG).show();
+                    gotoDashboard();
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(Signup.this, "Please upload your photo", Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
-
+    void gotoDashboard() {
+        Intent intent = new Intent(Signup.this, Dashboard.class);
+        startActivity(intent);
+        finish();
+    }
 }

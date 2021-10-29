@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,17 +20,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.zxing.WriterException;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -41,15 +49,19 @@ public class Dashboard extends AppCompatActivity {
     public Integer progressnum = 25;
     TextView remaining, welcome, offer;
     Dialog dialog;
-    ImageView Qr;
+    ImageView Qr, Profile_photo;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
     String userID;
     Bitmap GeneratedQr;
     String days_string = "0";
     int days_number;
     Double days_Double;
     Integer days_int;
+    int hour;
+    int min;
 
 
     @Override
@@ -57,16 +69,17 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         firebaseAuth = FirebaseAuth.getInstance();
-        Calendar timeofday = Calendar.getInstance();
-       /*
-       timeofday.set(Calendar.HOUR_OF_DAY,12);
-       timeofday.set(Calendar.MINUTE,0);
-       timeofday.set(Calendar.SECOND,0);
-       timeofday.set(Calendar.AM_PM,Calendar.AM);
-       Long currenttime = new Date().getTime();
-       if ()*/
+        Calendar calendar = Calendar.getInstance();
+        hour = calendar.get(Calendar.HOUR);
+        min = calendar.get(Calendar.MINUTE);
+        System.out.println(hour + "hour");
+        Profile_photo = findViewById(R.id.profile_photo);
+        downloadprofile();
 
+//
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
         welcome = findViewById(R.id.welcome);
         Qr = findViewById(R.id.Qr);
         offer = findViewById(R.id.offer);
@@ -91,8 +104,6 @@ public class Dashboard extends AppCompatActivity {
         });
 
 
-
-
         progressBar = findViewById(R.id.progress);
         remaining = findViewById(R.id.remaningdays);
 
@@ -102,6 +113,7 @@ public class Dashboard extends AppCompatActivity {
 
         Generate_Qr();
         get_message();
+        upadate_days();
 
 
     }
@@ -148,22 +160,27 @@ public class Dashboard extends AppCompatActivity {
     }
 
 
-
     //progress circule
 
     public void updateprogress() {
 
-        progressBar.setMax(30);
-        progressBar.setProgress(days_Double.intValue());
-        if (days_Double != null) {
-            days_int = days_Double.intValue();
-            remaining.setText(days_int.toString() + " days");
+        try {
+
+            progressBar.setMax(30);
+            progressBar.setProgress(days_Double.intValue());
+            if (days_Double != null) {
+                days_int = days_Double.intValue();
+                remaining.setText(days_int.toString() + " days");
 
 
-        }
-        if (days_int == 0) {
-            progressBar.setVisibility(View.INVISIBLE);
-            remaining.setText("Click here to renew your subscribtion");
+            }
+            if (days_int == 0) {
+                progressBar.setVisibility(View.INVISIBLE);
+                remaining.setText("Click here to renew your subscribtion");
+            }
+
+        } catch (Exception e) {
+
         }
 
 
@@ -241,5 +258,60 @@ public class Dashboard extends AppCompatActivity {
 
             }
         });
+    }
+
+    void upadate_days() {
+        try {
+            if (hour == 3 && min == 35) {
+                days_Double--;
+                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                Map<String, Object> day = new HashMap<>();
+                day.put("daysnumber", days_Double);
+                documentReference.set(day).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        remaining.setText(days_Double.toString());
+
+
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+
+            remaining.setText("Error");
+        }
+
+    }
+
+    void downloadprofile() {
+
+        try {
+            StorageReference profile = storageReference.child("image/profile/" + userID);
+            long MAXBYTES = 1024 * 1024;
+            profile.getBytes(MAXBYTES).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    Profile_photo.setImageBitmap(bitmap);
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Dashboard.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+    public void teststuff(View view) {
+        downloadprofile();
     }
 }

@@ -27,6 +27,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:onClick="teststuff"
                 android:text="Welcome"
                 android:textAlignment="center"
                 android:textColor="@color/blue"
@@ -35,13 +36,12 @@
 
             <ImageView
 
-                android:id="@+id/imageView6"
+                android:id="@+id/profile_photo"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:onClick="profilepic"
-                app:srcCompat="@drawable/profile" />
+                android:onClick="profilepic" />
 
             <ImageView
                 android:id="@+id/Qr"
