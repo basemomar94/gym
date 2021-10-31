@@ -169,7 +169,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
 
-    //progress circule
+    //progress circle
 
     public void updateprogress() {
 
@@ -211,7 +211,11 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
+
+    //Qr Expanding Dialogue
+
     public void QronClick(View view) {
+
 
         dialog = new Dialog(Dashboard.this);
         dialog.setContentView(R.layout.qr);
@@ -224,6 +228,7 @@ public class Dashboard extends AppCompatActivity {
 
 
     }
+
 
     void gotofirstScreen() {
         Intent intent = new Intent(Dashboard.this, MainActivity.class);
