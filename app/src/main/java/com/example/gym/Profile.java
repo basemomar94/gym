@@ -4,15 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,7 +32,15 @@ public class Profile extends AppCompatActivity {
     String userID;
     Date currentdate;
     String userbirthdate;
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+    ImageView profie_profile;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getprofilepic();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,8 @@ public class Profile extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
         fname = findViewById(R.id.fname_pro);
         lname = findViewById(R.id.lname_prof);
         mail = findViewById(R.id.mail_prof);
@@ -45,6 +61,7 @@ public class Profile extends AppCompatActivity {
         age = findViewById(R.id.age_prof);
         getCurrentDate();
         System.out.println(currentdate);
+        profie_profile = findViewById(R.id.profie_profile);
 
         //Get user id
         userID = firebaseAuth.getCurrentUser().getUid();
@@ -79,5 +96,25 @@ public class Profile extends AppCompatActivity {
         // currentdate=date
 
 
+    }
+
+    void getprofilepic() {
+        try {
+            StorageReference profile = storageReference.child("image/profile/" + userID);
+            long MAXBYTE = 1024 * 1024;
+            profile.getBytes(MAXBYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    profie_profile.setImageBitmap(bitmap);
+
+
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
     }
 }

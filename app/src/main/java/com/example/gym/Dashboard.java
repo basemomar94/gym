@@ -50,6 +50,15 @@ public class Dashboard extends AppCompatActivity {
     TextView remaining, welcome, offer;
     Dialog dialog;
     ImageView Qr, Profile_photo;
+    Bitmap Qr_Bitmap;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        downloadprofile();
+
+    }
+
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
@@ -74,7 +83,7 @@ public class Dashboard extends AppCompatActivity {
         min = calendar.get(Calendar.MINUTE);
         System.out.println(hour + "hour");
         Profile_photo = findViewById(R.id.profile_photo);
-        downloadprofile();
+
 
 //
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -207,6 +216,7 @@ public class Dashboard extends AppCompatActivity {
         dialog = new Dialog(Dashboard.this);
         dialog.setContentView(R.layout.qr);
 
+
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.qr_background));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
@@ -238,6 +248,7 @@ public class Dashboard extends AppCompatActivity {
         try {
             // Getting QR-Code as Bitmap
             Bitmap grBits = qrgEncoder.getBitmap();
+            Qr_Bitmap = grBits;
 
             // Setting Bitmap to ImageView
             Qr.setImageBitmap(grBits);

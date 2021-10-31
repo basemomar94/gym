@@ -78,7 +78,7 @@ public class Signup extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference("image");
 
 
-        chooseimage = findViewById(R.id.choosephoto);
+       // chooseimage = findViewById(R.id.choosephoto);
         uploadimage = findViewById(R.id.uploadphoto);
         profileimage = findViewById(R.id.profileimage);
 
@@ -329,6 +329,12 @@ public class Signup extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    loading.setProgress((int) (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount()));
+
                 }
             });
 

@@ -54,14 +54,6 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/choosephoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:onClick="uploadimage"
-                    android:text="upload" />
             </LinearLayout>
 
             <EditText
