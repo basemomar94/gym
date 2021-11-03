@@ -68,6 +68,7 @@ public class Signup extends AppCompatActivity {
     private ImageView profileimage;
     private StorageReference storageReference;
     private DatabaseReference firebaseDatabase;
+    String birthdatte;
 
 
     @Override
@@ -98,6 +99,7 @@ public class Signup extends AppCompatActivity {
         loading = findViewById(R.id.loading);
         bitrhdaydate = findViewById(R.id.Birthdaydate);
         planradio = findViewById(R.id.planradio);
+
 
         //choose plan
 
@@ -147,8 +149,8 @@ public class Signup extends AppCompatActivity {
 
                 month = month + 1;
 
-                String birthdate = day + "/" + month + "/" + year;
-                bitrhdaydate.setText(birthdate);
+                birthdatte = day + "/" + month + "/" + year;
+                bitrhdaydate.setText(birthdatte);
 
 
             }
@@ -234,7 +236,7 @@ public class Signup extends AppCompatActivity {
 
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(Signup.this, "User is Created", Toast.LENGTH_LONG).show();
+
 
                             //injectData
 
@@ -249,6 +251,7 @@ public class Signup extends AppCompatActivity {
                             users.put("password", password.getText().toString().trim());
                             users.put("height", height.toString());
                             users.put("weight", weight.toString());
+                            users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
                             documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -258,15 +261,12 @@ public class Signup extends AppCompatActivity {
 
                                 }
                             });
-                            System.out.println(daysofsub);
-
-
 
 
                         } else {
 
                             Toast.makeText(Signup.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
-                            System.out.println(email);
+
                         }
 
                     }
@@ -320,7 +320,6 @@ public class Signup extends AppCompatActivity {
             profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Signup.this, "Done", Toast.LENGTH_LONG).show();
                     gotoDashboard();
 
 

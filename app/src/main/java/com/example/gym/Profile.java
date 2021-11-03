@@ -78,7 +78,6 @@ public class Profile extends AppCompatActivity {
                 height.setText("Height : " + value.getString("height"));
                 mobile.setText("Phone number : " + value.getString("phone"));
                 age.setText("Birth date : " + value.getString("age"));
-                userbirthdate = value.getString("age");
                 System.out.println(userbirthdate + "HBD");
 
 
