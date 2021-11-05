@@ -4,17 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,7 +39,6 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 
 public class Signup extends AppCompatActivity {
@@ -253,14 +247,7 @@ public class Signup extends AppCompatActivity {
                             users.put("weight", weight.toString());
                             users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
-                            documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    ToFireNew();
 
-
-                                }
-                            });
 
 
                         } else {
@@ -313,7 +300,7 @@ public class Signup extends AppCompatActivity {
     }
 
 
-    void ToFireNew() {
+    void Addphototofirebase() {
 
         if (image != null) {
             StorageReference profileupload = storageReference.child("profile/" + userID);

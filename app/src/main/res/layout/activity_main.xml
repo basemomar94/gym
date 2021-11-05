@@ -4,37 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     android:orientation="vertical"
-    android:layout_margin="10dp"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_height="0dp"
-        android:id="@+id/imageView4"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="60dp"
-        app:srcCompat="@drawable/gg" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/login"
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/gg" />
+
+        <Button
+            android:id="@+id/login"
 
 
-        style="@style/button_style"
-        android:layout_marginBottom="25dp"
-        android:background="@color/yellow"
-        android:onClick="login"
-        android:text="@string/login"
-        android:textColor="#0288D1" />
+            style="@style/button_style"
+            android:layout_marginBottom="25dp"
+            android:background="@color/yellow"
+            android:onClick="login"
+            android:text="@string/login"
+            android:textColor="#0288D1" />
 
-    <Button
-        android:id="@+id/signup"
-        style="@style/button_style"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/yellow"
-        android:onClick="signup"
-        android:text="@string/signup"
-        android:textColor="#0288D1" />
+        <Button
+            android:id="@+id/signup"
+            style="@style/button_style"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/yellow"
+            android:onClick="signup"
+            android:text="@string/signup"
+            android:textColor="#0288D1" />
+    </LinearLayout>
+
 </LinearLayout>

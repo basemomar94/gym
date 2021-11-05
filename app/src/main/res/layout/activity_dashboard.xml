@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     android:elevation="5dp"
     android:orientation="vertical"
     tools:context=".Dashboard">
@@ -18,6 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -25,7 +25,7 @@
                 android:layout_width="389dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_margin="8dp"
                 android:gravity="center"
                 android:onClick="teststuff"
                 android:text="Welcome"
@@ -40,22 +40,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_margin="8dp"
                 android:onClick="profilepic" />
 
             <ImageView
                 android:id="@+id/Qr"
-                android:layout_width="156dp"
+                android:layout_width="150dp"
                 android:layout_height="108dp"
                 android:layout_gravity="center"
+                android:layout_margin="8dp"
                 android:layout_weight=".1"
+                android:background="@color/white"
                 android:onClick="QronClick"
                 app:srcCompat="@drawable/qr" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_margin="2dp"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="5dp">
 
                 <TextView
@@ -102,6 +104,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
                         android:orientation="vertical">
 
                         <ProgressBar
@@ -135,9 +138,10 @@
                 android:layout_gravity="end"
                 android:onClick="Training"
                 android:text="Start your training"
-                android:textColor="@color/blue" />
+                android:textColor="@color/blue"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 
 
-</LinearLayout>
+</FrameLayout>
