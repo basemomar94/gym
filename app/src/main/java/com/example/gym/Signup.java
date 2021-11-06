@@ -63,6 +63,7 @@ public class Signup extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference firebaseDatabase;
     String birthdatte;
+    Button signup;
 
 
     @Override
@@ -76,6 +77,7 @@ public class Signup extends AppCompatActivity {
        // chooseimage = findViewById(R.id.choosephoto);
         uploadimage = findViewById(R.id.uploadphoto);
         profileimage = findViewById(R.id.profileimage);
+        signup = findViewById(R.id.signupup);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -190,7 +192,9 @@ public class Signup extends AppCompatActivity {
 
     //Signup Button
     public void signupp(View view) {
-
+        signup.setEnabled(false);
+        signup.setAlpha(1);
+        loading.setVisibility(View.VISIBLE);
 
         System.out.println(daysofsub + "check days");
 
@@ -219,7 +223,7 @@ public class Signup extends AppCompatActivity {
 
         if (email.getText().toString().trim().length() != 0 && password.getText().toString().trim().length() != 0) {
 
-            loading.setVisibility(View.VISIBLE);
+
 
             try {
 
@@ -247,10 +251,18 @@ public class Signup extends AppCompatActivity {
                             users.put("weight", weight.toString());
                             users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
-
+                            documentReference.set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Addphototofirebase();
+                                }
+                            });
 
 
                         } else {
+                            signup.setEnabled(false);
+                            signup.setAlpha(1);
+                            loading.setVisibility(View.INVISIBLE);
 
                             Toast.makeText(Signup.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
 
