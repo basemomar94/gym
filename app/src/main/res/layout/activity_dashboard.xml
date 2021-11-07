@@ -72,6 +72,13 @@
 
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/todaydate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="TextView" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,13 +105,16 @@
                         android:text="Loading..."
                         android:textAlignment="center"
                         android:textColor="@color/blue"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:orientation="vertical">
 
                         <ProgressBar
@@ -124,6 +134,12 @@
                             android:progressDrawable="@drawable/circle"
                             tools:ignore="SpeakableTextPresentCheck"
                             tools:progress="50" />
+
+                        <Button
+                            android:id="@+id/button2"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="Plan Details" />
                     </LinearLayout>
 
                 </RelativeLayout>

@@ -36,10 +36,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.zxing.WriterException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -49,17 +53,11 @@ public class Dashboard extends AppCompatActivity {
 
     public ProgressBar progressBar;
     public Integer progressnum = 25;
-    TextView remaining, welcome, offer;
+    TextView remaining, welcome, offer, date;
     Dialog dialog;
     ImageView Qr, Profile_photo;
     Bitmap Qr_Bitmap;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        downloadprofile();
-
-    }
+    String registrationdate;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -74,6 +72,15 @@ public class Dashboard extends AppCompatActivity {
     int hour;
     int min;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        downloadprofile();
+        update_days();
+
+        //  update_days();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,9 @@ public class Dashboard extends AppCompatActivity {
         min = calendar.get(Calendar.MINUTE);
         System.out.println(hour + "hour");
         Profile_photo = findViewById(R.id.profile_photo);
+        date = findViewById(R.id.todaydate);
+        String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        date.setText(today_Date);
 
 
 //
@@ -104,11 +114,13 @@ public class Dashboard extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 welcome.setText("Welcome " + value.getString("fname"));
 
+
                 //  days_string=value.getString("daysnumber");
                 days_Double = value.getDouble("daysnumber");
+                registrationdate = value.getString("date");
 
                 System.out.println("days" + days_Double);
-                updateprogress();
+
 
 
             }
@@ -124,10 +136,11 @@ public class Dashboard extends AppCompatActivity {
 
         Generate_Qr();
         get_message();
-        upadate_days();
+
 
 
     }
+
 
 
     @Override
@@ -173,7 +186,7 @@ public class Dashboard extends AppCompatActivity {
 
     //progress circle
 
-    public void updateprogress() {
+  /*  public void updateprogress() {
 
         try {
 
@@ -195,7 +208,7 @@ public class Dashboard extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 
 
     public void Training(View view) {
@@ -278,7 +291,7 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
-    void upadate_days() {
+    /*void upadate_days() {
         try {
             if (hour == 3 && min == 35) {
                 days_Double--;
@@ -300,7 +313,7 @@ public class Dashboard extends AppCompatActivity {
             remaining.setText("Error");
         }
 
-    }
+    }*/
 
     void downloadprofile() {
 
@@ -331,6 +344,59 @@ public class Dashboard extends AppCompatActivity {
 
 
     public void teststuff(View view) {
+        update_days();
         downloadprofile();
+    }
+
+    void update_days() {
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                String sub = value.getString("date");
+                Double daysofsub = value.getDouble("daysnumber");
+                System.out.println(daysofsub + "fire");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    Date sub_date = simpleDateFormat.parse(sub);
+                    String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    Date today_date = simpleDateFormat.parse(today_Date);
+                    long remaing = Math.abs(today_date.getTime() - sub_date.getTime());
+                    int diffenrence = (int) TimeUnit.DAYS.convert(remaing, TimeUnit.MILLISECONDS);
+                    System.out.println(daysofsub);
+                    System.out.println(diffenrence);
+                    int actual_remaining = (int) (daysofsub - diffenrence);
+                    progressBar.setMax(days_Double.intValue());
+                    System.out.println(actual_remaining);
+
+                    progressBar.setProgress(actual_remaining);
+                    if (actual_remaining > 0) {
+                        remaining.setText(actual_remaining + " days");
+                    } else {
+                        remaining.setText("renew your subscribtion");
+                    }
+
+
+                    System.out.println(diffenrence);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+
+               /* try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    Date today_date = simpleDateFormat.parse(today_Date);
+                    Date sub_date = simpleDateFormat.parse(sub);
+                    long remaing = Math.abs(today_date.getTime()-sub_date.getTime());
+                    System.out.println(remaing+"remaining");
+                    Toast.makeText(Dashboard.this, (int) remaing,Toast.LENGTH_LONG).show();
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }*/
+
+            }
+        });
     }
 }

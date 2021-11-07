@@ -36,8 +36,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -64,6 +68,7 @@ public class Signup extends AppCompatActivity {
     private DatabaseReference firebaseDatabase;
     String birthdatte;
     Button signup;
+    String subscribtion_Date;
 
 
     @Override
@@ -74,7 +79,7 @@ public class Signup extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance().getReference("image");
 
 
-       // chooseimage = findViewById(R.id.choosephoto);
+        // chooseimage = findViewById(R.id.choosephoto);
         uploadimage = findViewById(R.id.uploadphoto);
         profileimage = findViewById(R.id.profileimage);
         signup = findViewById(R.id.signupup);
@@ -95,6 +100,7 @@ public class Signup extends AppCompatActivity {
         loading = findViewById(R.id.loading);
         bitrhdaydate = findViewById(R.id.Birthdaydate);
         planradio = findViewById(R.id.planradio);
+        subscribtion_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
 
         //choose plan
@@ -192,9 +198,7 @@ public class Signup extends AppCompatActivity {
 
     //Signup Button
     public void signupp(View view) {
-        signup.setEnabled(false);
-        signup.setAlpha(1);
-        loading.setVisibility(View.VISIBLE);
+
 
         System.out.println(daysofsub + "check days");
 
@@ -224,8 +228,10 @@ public class Signup extends AppCompatActivity {
         if (email.getText().toString().trim().length() != 0 && password.getText().toString().trim().length() != 0) {
 
 
-
             try {
+                signup.setEnabled(false);
+                signup.setAlpha(.5F);
+                loading.setVisibility(View.VISIBLE);
 
 
                 mAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -251,6 +257,7 @@ public class Signup extends AppCompatActivity {
                             users.put("weight", weight.toString());
                             users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
+                            users.put("date", subscribtion_Date);
                             documentReference.set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -260,7 +267,7 @@ public class Signup extends AppCompatActivity {
 
 
                         } else {
-                            signup.setEnabled(false);
+                            signup.setEnabled(true);
                             signup.setAlpha(1);
                             loading.setVisibility(View.INVISIBLE);
 
@@ -274,6 +281,10 @@ public class Signup extends AppCompatActivity {
                 });
             } catch (Exception e) {
                 Toast.makeText(Signup.this, e.toString(), Toast.LENGTH_LONG).show();
+                signup.setEnabled(true);
+                signup.setAlpha(0);
+                loading.setVisibility(View.INVISIBLE);
+
             }
         }
 
