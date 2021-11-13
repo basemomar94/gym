@@ -73,9 +73,9 @@ public class Profile extends AppCompatActivity {
                 fname.setText("First name : " + value.getString("fname"));
                 lname.setText("Last name : " + value.getString("lname"));
                 age.setText("Age : " + value.getString("age"));
-                weight.setText("Weight : " + value.getString("weight"));
+                weight.setText("Weight : " + value.getDouble("weight").toString());
                 mail.setText("Email : " + value.getString("mail"));
-                height.setText("Height : " + value.getString("height"));
+                height.setText("Height : " + value.getDouble("height").toString());
                 mobile.setText("Phone number : " + value.getString("phone"));
                 age.setText("Birth date : " + value.getString("age"));
                 System.out.println(userbirthdate + "HBD");

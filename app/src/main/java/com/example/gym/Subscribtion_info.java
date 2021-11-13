@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
@@ -11,8 +12,16 @@ public class Subscribtion_info extends AppCompatActivity {
 
     ProgressBar linearprogress;
     ProgressBar CircularprogessBar;
-    Integer progress = 25;
-    Integer progressMax = 30;
+    int progress;
+    int progressMax = 30;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progress = getIntent().getIntExtra("remaining", 0);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

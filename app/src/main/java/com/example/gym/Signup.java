@@ -36,7 +36,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -124,6 +123,7 @@ public class Signup extends AppCompatActivity {
 
 
             }
+
         });
 
 
@@ -253,11 +253,12 @@ public class Signup extends AppCompatActivity {
                             users.put("mail", email.getText().toString().trim());
                             users.put("phone", phone.getText().toString().trim());
                             users.put("password", password.getText().toString().trim());
-                            users.put("height", height.toString());
-                            users.put("weight", weight.toString());
+                            users.put("height", height);
+                            users.put("weight", weight);
                             users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
                             users.put("date", subscribtion_Date);
+                            users.put("activation", "False");
                             documentReference.set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -330,7 +331,7 @@ public class Signup extends AppCompatActivity {
             profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    gotoDashboard();
+                    gotoPlan();
 
 
                 }
@@ -354,9 +355,15 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    void gotoDashboard() {
-        Intent intent = new Intent(Signup.this, Dashboard.class);
+    void gotoPlan() {
+        Intent intent = new Intent(Signup.this, Plan.class);
+        intent.putExtra("userid", userID);
         startActivity(intent);
+
         finish();
+    }
+
+    public void test(View view) {
+        gotoPlan();
     }
 }

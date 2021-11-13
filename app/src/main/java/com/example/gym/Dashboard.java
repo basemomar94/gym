@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gym.databinding.ActivityDashboardBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +51,7 @@ import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
 public class Dashboard extends AppCompatActivity {
+    ActivityDashboardBinding binding;
 
 
     public ProgressBar progressBar;
@@ -58,6 +61,7 @@ public class Dashboard extends AppCompatActivity {
     ImageView Qr, Profile_photo;
     Bitmap Qr_Bitmap;
     String registrationdate;
+    int senddays;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -71,11 +75,13 @@ public class Dashboard extends AppCompatActivity {
     Integer days_int;
     int hour;
     int min;
+    String message;
 
     @Override
     protected void onStart() {
         super.onStart();
         downloadprofile();
+        get_message();
         update_days();
 
         //  update_days();
@@ -85,7 +91,8 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        binding = ActivityDashboardBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         firebaseAuth = FirebaseAuth.getInstance();
         Calendar calendar = Calendar.getInstance();
         hour = calendar.get(Calendar.HOUR);
@@ -113,14 +120,25 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 welcome.setText("Welcome " + value.getString("fname"));
+                binding.textView5.setText(userID);
+                binding.textView5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        copytoClip(binding.textView5);
+
+
+                    }
+                });
 
 
                 //  days_string=value.getString("daysnumber");
-                days_Double = value.getDouble("daysnumber");
+
+                days_Double = 30.0;
+
+                // days_Double = value.getDouble("daysnumber");
                 registrationdate = value.getString("date");
 
                 System.out.println("days" + days_Double);
-
 
 
             }
@@ -184,31 +202,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
 
-    //progress circle
 
-  /*  public void updateprogress() {
-
-        try {
-
-            progressBar.setMax(30);
-            progressBar.setProgress(days_Double.intValue());
-            if (days_Double != null) {
-                days_int = days_Double.intValue();
-                remaining.setText(days_int.toString() + " days");
-
-
-            }
-            if (days_int == 0) {
-                progressBar.setVisibility(View.INVISIBLE);
-                remaining.setText("Click here to renew your subscribtion");
-            }
-
-        } catch (Exception e) {
-
-        }
-
-
-    }*/
 
 
     public void Training(View view) {
@@ -222,27 +216,12 @@ public class Dashboard extends AppCompatActivity {
 
     void gotoPlanDetails() {
         Intent intent = new Intent(Dashboard.this, Subscribtion_info.class);
+        intent.putExtra("remaining", senddays);
         startActivity(intent);
 
     }
 
 
-    //Qr Expanding Dialogue
-
-    public void QronClick(View view) {
-
-
-        dialog = new Dialog(Dashboard.this);
-        dialog.setContentView(R.layout.qr);
-
-
-        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.qr_background));
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-
-
-    }
 
 
     void gotofirstScreen() {
@@ -280,40 +259,24 @@ public class Dashboard extends AppCompatActivity {
     }
 
     void get_message() {
+
         DocumentReference documentReference = firebaseFirestore.collection("message").document("message");
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                offer.setText(value.getString("message"));
+                message = value.getString("message");
+
 
             }
         });
+        if (message != null) {
+            binding.offersBoard.setVisibility(View.VISIBLE);
+            binding.offer.setText(message);
+        }
+        System.out.println(message);
     }
 
-    /*void upadate_days() {
-        try {
-            if (hour == 3 && min == 35) {
-                days_Double--;
-                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
-                Map<String, Object> day = new HashMap<>();
-                day.put("daysnumber", days_Double);
-                documentReference.set(day).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        remaining.setText(days_Double.toString());
-
-
-                    }
-                });
-            }
-
-        } catch (Exception e) {
-
-            remaining.setText("Error");
-        }
-
-    }*/
 
     void downloadprofile() {
 
@@ -344,8 +307,8 @@ public class Dashboard extends AppCompatActivity {
 
 
     public void teststuff(View view) {
-        update_days();
-        downloadprofile();
+        get_message();
+
     }
 
     void update_days() {
@@ -354,49 +317,55 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 String sub = value.getString("date");
+
                 Double daysofsub = value.getDouble("daysnumber");
-                System.out.println(daysofsub + "fire");
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                try {
-                    Date sub_date = simpleDateFormat.parse(sub);
-                    String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                    Date today_date = simpleDateFormat.parse(today_Date);
-                    long remaing = Math.abs(today_date.getTime() - sub_date.getTime());
-                    int diffenrence = (int) TimeUnit.DAYS.convert(remaing, TimeUnit.MILLISECONDS);
-                    System.out.println(daysofsub);
-                    System.out.println(diffenrence);
-                    int actual_remaining = (int) (daysofsub - diffenrence);
-                    progressBar.setMax(days_Double.intValue());
-                    System.out.println(actual_remaining);
+                String activation = value.getString("activation");
+                System.out.println(activation + "active");
+                if (!activation.equals("False")) {
+                    System.out.println(daysofsub + "fire");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date sub_date = simpleDateFormat.parse(sub);
+                        String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                        Date today_date = simpleDateFormat.parse(today_Date);
+                        long remaing = Math.abs(today_date.getTime() - sub_date.getTime());
+                        int diffenrence = (int) TimeUnit.DAYS.convert(remaing, TimeUnit.MILLISECONDS);
+                        System.out.println(diffenrence);
+                        int actual_remaining = (int) (daysofsub - diffenrence);
+                        progressBar.setVisibility(View.VISIBLE);
+                        progressBar.setMax(daysofsub.intValue());
+                        System.out.println(actual_remaining);
 
-                    progressBar.setProgress(actual_remaining);
-                    if (actual_remaining > 0) {
-                        remaining.setText(actual_remaining + " days");
-                    } else {
-                        remaining.setText("renew your subscribtion");
+                        progressBar.setProgress(actual_remaining);
+                        senddays = actual_remaining;
+                        if (actual_remaining > 0) {
+                            remaining.setText(actual_remaining + " days");
+                        } else {
+                            remaining.setText("renew your subscribtion");
+                        }
+
+
+                        System.out.println(diffenrence);
+                    } catch (Exception e) {
+                        System.out.println(e);
+
                     }
-
-
-                    System.out.println(diffenrence);
-                } catch (Exception e) {
-                    System.out.println(e);
+                } else {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    remaining.setText("you need to activate your account");
+                    remaining.setEnabled(false);
                 }
 
 
-               /* try {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                    String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                    Date today_date = simpleDateFormat.parse(today_Date);
-                    Date sub_date = simpleDateFormat.parse(sub);
-                    long remaing = Math.abs(today_date.getTime()-sub_date.getTime());
-                    System.out.println(remaing+"remaining");
-                    Toast.makeText(Dashboard.this, (int) remaing,Toast.LENGTH_LONG).show();
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }*/
-
             }
         });
+    }
+
+    void copytoClip(TextView textView) {
+        ClipboardManager _clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
+        _clipboard.setText(textView.getText());
+        Toast.makeText(Dashboard.this, textView.getText(), Toast.LENGTH_LONG).show();
+
+
     }
 }
