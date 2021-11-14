@@ -27,6 +27,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:gravity="center"
+                android:minHeight="48dp"
                 android:onClick="teststuff"
                 android:text="Welcome"
                 android:textAlignment="center"
@@ -51,22 +52,24 @@
                 android:layout_margin="8dp"
                 android:layout_weight=".1"
                 android:background="@color/white"
-                android:onClick="QronClick"
-                app:srcCompat="@drawable/qr" />
+                android:onClick="showid"
+                app:srcCompat="@drawable/qr"
+                tools:ignore="OnClick" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/view_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:visibility="invisible" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/offers_board"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardCornerRadius="5dp">
 
                 <TextView
@@ -149,7 +152,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:onClick="plandetails"
-                            android:text="Plan Details" />
+                            android:text="Plan Details"
+                            android:textColor="@color/blue" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -166,6 +170,13 @@
                 android:text="Start your training"
                 android:textColor="@color/blue"
                 android:visibility="gone" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/fb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
         </LinearLayout>
     </ScrollView>
 

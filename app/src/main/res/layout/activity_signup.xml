@@ -21,49 +21,44 @@
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:onClick="test"
                 app:srcCompat="@drawable/gg" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_margin="8dp">
 
                 <Button
                     android:id="@+id/uploadphoto"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@drawable/camera"
-                    android:onClick="camera"
 
-                    />
+                    android:layout_gravity="center"
+
+                    android:background="@drawable/ic_menu_camera"
+                    android:onClick="camera"
+                    android:textColorHighlight="@color/blue"
+                    android:textColorLink="@color/blue" />
 
                 <ImageView
                     android:id="@+id/profileimage"
-                    android:layout_width="17dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1" />
-
-                <ProgressBar
-                    android:id="@+id/uploading"
-                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1" />
+                    android:visibility="invisible"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-            </LinearLayout>
+            </FrameLayout>
 
             <EditText
                 android:id="@+id/firstname_ET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
-                android:ems="10"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:hint="first name"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
@@ -74,9 +69,9 @@
                 android:id="@+id/lastname_ET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
-                android:ems="10"
+                android:drawableLeft="@drawable/person2"
                 android:hint="last name"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
@@ -87,11 +82,12 @@
                 android:id="@+id/email_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
+                android:drawableLeft="@drawable/mail"
                 android:ems="10"
-                android:hint="Email"
 
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:padding="5dp" />
@@ -100,8 +96,9 @@
                 android:id="@+id/password_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
+                android:drawableLeft="@drawable/password"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -114,8 +111,9 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
+                android:drawableLeft="@drawable/password"
                 android:ems="10"
                 android:hint="Confirm password"
                 android:inputType="textPassword"
@@ -126,11 +124,12 @@
                 android:id="@+id/phone_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
+                android:drawableLeft="@drawable/phone"
                 android:ems="10"
-                android:hint="Phone number"
 
+                android:hint="Phone number"
                 android:inputType="number"
                 android:minHeight="48dp"
                 android:padding="5dp" />
@@ -140,8 +139,9 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/text_edit"
+                android:drawableLeft="@drawable/birth"
                 android:ems="10"
                 android:hint="Date of birth"
                 android:inputType="date"
@@ -152,85 +152,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Sex"
-                    android:textColor="@color/blue"
-                    android:textSize="20sp" />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:text="Male" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Female" />
-                </RadioGroup>
-
-            </LinearLayout>
+                android:orientation="horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/plan_radio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:text="Choose your plan"
-                    android:textColor="@color/blue"
-                    android:textSize="20sp" />
-
-                <RadioGroup
-                    android:id="@+id/planradio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="selectplan">
-
-                    <RadioButton
-                        android:id="@+id/onemonth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="One month plan" />
-
-                    <RadioButton
-                        android:id="@+id/three_months"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="3 months plan" />
-
-                    <RadioButton
-                        android:id="@+id/sixmonths"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="6 months plan" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -317,6 +244,7 @@
                 android:id="@+id/signupup"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_margin="8dp"
                 android:onClick="signupp"
                 android:text="@string/signup"
                 android:textColor="@color/blue"

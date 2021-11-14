@@ -40,6 +40,7 @@ public class Profile extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         getprofilepic();
+
     }
 
     @Override

@@ -21,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gym.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -68,12 +69,14 @@ public class Signup extends AppCompatActivity {
     String birthdatte;
     Button signup;
     String subscribtion_Date;
+    ActivitySignupBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         storageReference = FirebaseStorage.getInstance().getReference("image");
         firebaseDatabase = FirebaseDatabase.getInstance().getReference("image");
 
@@ -98,33 +101,13 @@ public class Signup extends AppCompatActivity {
         // height_picker.setValue(height);
         loading = findViewById(R.id.loading);
         bitrhdaydate = findViewById(R.id.Birthdaydate);
-        planradio = findViewById(R.id.planradio);
+
         subscribtion_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
 
         //choose plan
 
-        planradio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                switch (i) {
-                    case R.id.onemonth:
-                        daysofsub = 30;
-                        break;
-                    case R.id.three_months:
-                        daysofsub = 90;
-                        break;
-                    case R.id.sixmonths:
-                        daysofsub = 180;
-                        break;
-
-                }
-
-
-            }
-
-        });
 
 
         //Birth Date Selector
@@ -315,6 +298,8 @@ public class Signup extends AppCompatActivity {
 
             image = data.getData();
             profileimage.setImageURI(image);
+            binding.uploadphoto.setVisibility(View.INVISIBLE);
+            binding.profileimage.setVisibility(View.VISIBLE);
 
         } else {
             System.out.println("FAIL");

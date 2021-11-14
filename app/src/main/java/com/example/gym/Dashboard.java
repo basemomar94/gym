@@ -81,10 +81,10 @@ public class Dashboard extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         downloadprofile();
-        get_message();
-        update_days();
 
-        //  update_days();
+        update_days();
+        get_message();
+
 
     }
 
@@ -97,7 +97,6 @@ public class Dashboard extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         hour = calendar.get(Calendar.HOUR);
         min = calendar.get(Calendar.MINUTE);
-        System.out.println(hour + "hour");
         Profile_photo = findViewById(R.id.profile_photo);
         date = findViewById(R.id.todaydate);
         String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -114,17 +113,20 @@ public class Dashboard extends AppCompatActivity {
         userID = firebaseAuth.getCurrentUser().getUid();
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         days_number = sharedPreferences.getInt("days", Integer.parseInt("0"));
+        //Display message
+        System.out.println(message);
+
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 welcome.setText("Welcome " + value.getString("fname"));
-                binding.textView5.setText(userID);
-                binding.textView5.setOnClickListener(new View.OnClickListener() {
+                binding.viewId.setText(userID);
+                binding.viewId.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        copytoClip(binding.textView5);
+                        copytoClip(binding.viewId);
 
 
                     }
@@ -138,7 +140,7 @@ public class Dashboard extends AppCompatActivity {
                 // days_Double = value.getDouble("daysnumber");
                 registrationdate = value.getString("date");
 
-                System.out.println("days" + days_Double);
+
 
 
             }
@@ -266,14 +268,12 @@ public class Dashboard extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                 message = value.getString("message");
+                binding.offer.setText(message);
 
 
             }
         });
-        if (message != null) {
-            binding.offersBoard.setVisibility(View.VISIBLE);
-            binding.offer.setText(message);
-        }
+
         System.out.println(message);
     }
 
@@ -320,9 +320,9 @@ public class Dashboard extends AppCompatActivity {
 
                 Double daysofsub = value.getDouble("daysnumber");
                 String activation = value.getString("activation");
-                System.out.println(activation + "active");
+
                 if (!activation.equals("False")) {
-                    System.out.println(daysofsub + "fire");
+
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     try {
                         Date sub_date = simpleDateFormat.parse(sub);
@@ -330,11 +330,10 @@ public class Dashboard extends AppCompatActivity {
                         Date today_date = simpleDateFormat.parse(today_Date);
                         long remaing = Math.abs(today_date.getTime() - sub_date.getTime());
                         int diffenrence = (int) TimeUnit.DAYS.convert(remaing, TimeUnit.MILLISECONDS);
-                        System.out.println(diffenrence);
+
                         int actual_remaining = (int) (daysofsub - diffenrence);
                         progressBar.setVisibility(View.VISIBLE);
                         progressBar.setMax(daysofsub.intValue());
-                        System.out.println(actual_remaining);
 
                         progressBar.setProgress(actual_remaining);
                         senddays = actual_remaining;
@@ -345,9 +344,8 @@ public class Dashboard extends AppCompatActivity {
                         }
 
 
-                        System.out.println(diffenrence);
                     } catch (Exception e) {
-                        System.out.println(e);
+
 
                     }
                 } else {
@@ -367,5 +365,9 @@ public class Dashboard extends AppCompatActivity {
         Toast.makeText(Dashboard.this, textView.getText(), Toast.LENGTH_LONG).show();
 
 
+    }
+
+    public void showid(View view) {
+        binding.viewId.setVisibility(View.VISIBLE);
     }
 }

@@ -3,6 +3,7 @@
     <style name="Theme.Gym" parent="Theme.MaterialComponents.DayNight">
         <item name="android:windowContentOverlay">@null</item>
 
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FDE500</item>
 
