@@ -1,15 +1,22 @@
 package com.example.gym;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.gym.databinding.ActivityProfileBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,7 +25,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +36,8 @@ import java.util.Date;
 public class Profile extends AppCompatActivity {
 
     TextView fname, lname, mail, mobile, height, weight, age;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    ActivityProfileBinding binding;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     String userID;
@@ -35,6 +46,8 @@ public class Profile extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     ImageView profie_profile;
+    private Uri image;
+
 
     @Override
     protected void onStart() {
@@ -46,19 +59,17 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        binding = ActivityProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference();
+        storageReference = FirebaseStorage.getInstance().getReference("image");
         fname = findViewById(R.id.fname_pro);
         lname = findViewById(R.id.lname_prof);
         mail = findViewById(R.id.mail_prof);
         mobile = findViewById(R.id.mobile_prof);
-        height = findViewById(R.id.height_prof);
-        weight = findViewById(R.id.weight_prof);
         age = findViewById(R.id.age_prof);
         getCurrentDate();
         System.out.println(currentdate);
@@ -74,9 +85,7 @@ public class Profile extends AppCompatActivity {
                 fname.setText("First name : " + value.getString("fname"));
                 lname.setText("Last name : " + value.getString("lname"));
                 age.setText("Age : " + value.getString("age"));
-                weight.setText("Weight : " + value.getDouble("weight").toString());
                 mail.setText("Email : " + value.getString("mail"));
-                height.setText("Height : " + value.getDouble("height").toString());
                 mobile.setText("Phone number : " + value.getString("phone"));
                 age.setText("Birth date : " + value.getString("age"));
                 System.out.println(userbirthdate + "HBD");
@@ -100,7 +109,7 @@ public class Profile extends AppCompatActivity {
 
     void getprofilepic() {
         try {
-            StorageReference profile = storageReference.child("image/profile/" + userID);
+            StorageReference profile = storageReference.child("/profile/" + userID);
             long MAXBYTE = 1024 * 1024;
             profile.getBytes(MAXBYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
@@ -114,7 +123,71 @@ public class Profile extends AppCompatActivity {
             });
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
 
         }
+    }
+
+    void choose_image() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            image = data.getData();
+            binding.profieProfile.setImageURI(image);
+
+            upload_image();
+
+
+        }
+    }
+
+    public void update(View view) {
+        choose_image();
+    }
+
+    void upload_image() {
+        binding.progressProfile.setVisibility(View.VISIBLE);
+        if (image != null) {
+            StorageReference profileupload = storageReference.child("profile/" + userID);
+            profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Toast.makeText(Profile.this, "profile photo is updated", Toast.LENGTH_LONG).show();
+                    binding.progressProfile.setVisibility(View.GONE);
+                    getprofilepic();
+
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    binding.progressProfile.setProgress((int) (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount()));
+                    //  binding.progressProfile.setProgress(50);
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Profile.this, "please try again", Toast.LENGTH_LONG).show();
+                    binding.progressProfile.setVisibility(View.GONE);
+
+                }
+            });
+        }
+
+    }
+
+    public void test(View view) {
+        getprofilepic();
+
     }
 }

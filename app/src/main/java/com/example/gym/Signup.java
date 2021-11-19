@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -99,7 +100,7 @@ public class Signup extends AppCompatActivity {
         weight_picker.setMinValue(30);
         weight_picker.setValue(weight);
         // height_picker.setValue(height);
-        loading = findViewById(R.id.loading);
+        loading = findViewById(R.id.loading_photo);
         bitrhdaydate = findViewById(R.id.Birthdaydate);
 
         subscribtion_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -182,6 +183,111 @@ public class Signup extends AppCompatActivity {
     //Signup Button
     public void signupp(View view) {
 
+        sendinguserData();
+
+
+    }
+
+    public void camera(View view) {
+        chooseimage();
+
+    }
+
+
+    private void chooseimage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == PICK_IMAGE_REQUEST && data != null && resultCode == RESULT_OK) {
+
+            image = data.getData();
+            profileimage.setImageURI(image);
+            binding.uploadphoto.setVisibility(View.INVISIBLE);
+            binding.profileimage.setVisibility(View.VISIBLE);
+
+        } else {
+            System.out.println("FAIL");
+        }
+
+
+    }
+
+
+    void Addphototofirebase() {
+
+        if (image != null) {
+            StorageReference profileupload = storageReference.child("profile/" + userID);
+            profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    gotoPlan();
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    loading.setProgress((int) (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount()));
+
+                }
+            });
+
+        } else {
+            Toast.makeText(Signup.this, "Please upload your photo", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    void gotoPlan() {
+        Intent intent = new Intent(Signup.this, Plan.class);
+        intent.putExtra("userid", userID);
+        startActivity(intent);
+
+        finish();
+    }
+
+    public void test(View view) {
+        gotoPlan();
+    }
+
+    void gettingToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    String token = task.getResult();
+                    DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                    documentReference.update("token", token);
+                }
+
+            }
+        });
+    }
+
+    void sendmessage() {
+
+
+    }
+
+    void sendinguserData() {
+
 
         System.out.println(daysofsub + "check days");
 
@@ -246,6 +352,8 @@ public class Signup extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Addphototofirebase();
+
+
                                 }
                             });
 
@@ -272,83 +380,5 @@ public class Signup extends AppCompatActivity {
             }
         }
 
-
-    }
-
-    public void camera(View view) {
-        chooseimage();
-
-    }
-
-
-    private void chooseimage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-        if (requestCode == PICK_IMAGE_REQUEST && data != null && resultCode == RESULT_OK) {
-
-            image = data.getData();
-            profileimage.setImageURI(image);
-            binding.uploadphoto.setVisibility(View.INVISIBLE);
-            binding.profileimage.setVisibility(View.VISIBLE);
-
-        } else {
-            System.out.println("FAIL");
-        }
-
-
-    }
-
-
-    void Addphototofirebase() {
-
-        if (image != null) {
-            StorageReference profileupload = storageReference.child("profile/" + userID);
-            profileupload.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    gotoPlan();
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                    loading.setProgress((int) (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount()));
-
-                }
-            });
-
-        } else {
-            Toast.makeText(Signup.this, "Please upload your photo", Toast.LENGTH_LONG).show();
-        }
-
-
-    }
-
-    void gotoPlan() {
-        Intent intent = new Intent(Signup.this, Plan.class);
-        intent.putExtra("userid", userID);
-        startActivity(intent);
-
-        finish();
-    }
-
-    public void test(View view) {
-        gotoPlan();
     }
 }

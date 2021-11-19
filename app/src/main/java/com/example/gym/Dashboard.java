@@ -219,6 +219,7 @@ public class Dashboard extends AppCompatActivity {
     void gotoPlanDetails() {
         Intent intent = new Intent(Dashboard.this, Subscribtion_info.class);
         intent.putExtra("remaining", senddays);
+        intent.putExtra("userid", userID);
         startActivity(intent);
 
     }
@@ -307,7 +308,7 @@ public class Dashboard extends AppCompatActivity {
 
 
     public void teststuff(View view) {
-        get_message();
+        System.out.println(userID);
 
     }
 
