@@ -15,6 +15,7 @@
         <entry key="..\:/gym/app/src/main/res/layout/activity_about.xml" value="0.20520833333333333" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_biceps.xml" value="0.17831813576494426" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
+        <entry key="..\:/gym/app/src/main/res/layout/activity_date.xml" value="0.1983695652173913" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_login.xml" value="0.17831813576494426" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/gym/app/src/main/res/layout/activity_notifications.xml" value="0.21965579710144928" />
@@ -27,6 +28,7 @@
         <entry key="..\:/gym/app/src/main/res/layout/activity_trainingview.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/layout/app_bar_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/layout/content_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/gym/app/src/main/res/layout/date.xml" value="0.33" />
         <entry key="..\:/gym/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
         <entry key="..\:/gym/app/src/main/res/layout/nav_head.xml" value="0.36666666666666664" />

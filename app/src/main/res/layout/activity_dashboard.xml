@@ -38,8 +38,8 @@
             <ImageView
 
                 android:id="@+id/profile_photo"
-                android:layout_width="match_parent"
-                android:layout_height="57dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
                 android:onClick="profilepic" />
