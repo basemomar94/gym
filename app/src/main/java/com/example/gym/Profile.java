@@ -58,6 +58,7 @@ public class Profile extends AppCompatActivity {
     RecyclerView recyclerView;
     String mail_user;
     private ArrayList<date_item> Date_list;
+    String time;
 
 
     @Override
@@ -205,7 +206,6 @@ public class Profile extends AppCompatActivity {
 
     public void test(View view) {
 
-        System.out.println(mail_user);
 
     }
 
@@ -215,9 +215,19 @@ public class Profile extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
 
+
                     for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
 
-                        Date_list.add(new date_item(queryDocumentSnapshot.getId()));
+                        DocumentReference documentReference = firebaseFirestore.collection(mail_user).document(queryDocumentSnapshot.getId());
+                        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                time = value.getString("time");
+
+                            }
+                        });
+
+                        Date_list.add(new date_item(queryDocumentSnapshot.getId(), time));
                         System.out.println(Date_list.size() + "fire");
                         setAdapter();
 
@@ -235,10 +245,6 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    void setup_test() {
-        Date_list.add(new date_item("Foooooo"));
-        Date_list.add(new date_item("Fooooosso"));
-    }
 
     void setAdapter() {
         date_adpater date_adpater = new date_adpater(Date_list);
