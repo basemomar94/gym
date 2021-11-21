@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -264,7 +265,8 @@ public class Signup extends AppCompatActivity {
     }
 
     public void test(View view) {
-        gotoPlan();
+        gettingToken();
+        subscribe_noti();
     }
 
     void gettingToken() {
@@ -275,6 +277,8 @@ public class Signup extends AppCompatActivity {
                     String token = task.getResult();
                     DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                     documentReference.update("token", token);
+                    Log.v("firebase_token", token);
+
                 }
 
             }
@@ -352,6 +356,8 @@ public class Signup extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Addphototofirebase();
+                                    gettingToken();
+                                    subscribe_noti();
 
 
                                 }
@@ -380,5 +386,25 @@ public class Signup extends AppCompatActivity {
             }
         }
 
+    }
+
+    void subscribe_noti() {
+        FirebaseMessaging.getInstance().subscribeToTopic("Gym")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Signup.this, "Done", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 }

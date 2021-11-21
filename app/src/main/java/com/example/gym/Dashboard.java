@@ -183,6 +183,7 @@ public class Dashboard extends AppCompatActivity {
             case R.id.logout: {
                 firebaseAuth.signOut();
                 gotofirstScreen();
+                break;
 
             }
             case R.id.notifications: {

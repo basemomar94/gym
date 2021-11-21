@@ -34,6 +34,7 @@ public class Notifications extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Notifications");
         setUpRecycle();
+        firebaseAdapter.startListening();
 
 
     }
@@ -48,6 +49,13 @@ public class Notifications extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         firebaseAdapter.stopListening();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpRecycle();
+        firebaseAdapter.startListening();
     }
 
     void setUpRecycle() {
