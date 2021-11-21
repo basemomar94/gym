@@ -87,7 +87,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/ic_baseline_person_24"
-                        android:text="First name : Bassem " />
+                        android:text="First name : Bassem "
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view4"
@@ -103,7 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/person2"
-                        android:text="Last name : Omar " />
+                        android:text="Last name : Omar "
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view"
@@ -119,7 +121,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/birth"
-                        android:text="Age : 27" />
+                        android:text="Age : 27"
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view2"
@@ -135,7 +138,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/ic_baseline_emoji_people_24"
-                        android:text="Gender : male" />
+                        android:text="Gender : male"
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view6"
@@ -151,7 +155,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/phone"
-                        android:text="Phone number : 01150095072" />
+                        android:text="Phone number : 01150095072"
+                        android:textSize="12sp" />
 
                     <View
                         android:id="@+id/view7"
@@ -167,7 +172,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:drawableLeft="@drawable/mail"
-                        android:text="Email : Basem@yahoo.com" />
+                        android:text="Email : Basem@yahoo.com"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
             </LinearLayout>
