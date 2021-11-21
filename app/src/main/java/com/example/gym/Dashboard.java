@@ -185,6 +185,10 @@ public class Dashboard extends AppCompatActivity {
                 gotofirstScreen();
 
             }
+            case R.id.notifications: {
+                Intent intent = new Intent(Dashboard.this, Notifications.class);
+                startActivity(intent);
+            }
 
         }
 

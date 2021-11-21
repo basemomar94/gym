@@ -1,23 +1,26 @@
 package com.example.gym;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
 public class Notifications extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private NotificationAdapter notificationAdapter;
     private ArrayList<Notificationitem> notificationitems;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    CollectionReference collectionReference;
+    Notification_Adpater_Firebase firebaseAdapter;
 
 
     @Override
@@ -27,39 +30,35 @@ public class Notifications extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Notifications");
-        recyclerView = findViewById(R.id.recycleview);
-        notificationitems = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            notificationitems.add(new Notificationitem("new offer dont waste it"));
-            notificationitems.add(new Notificationitem("A big discount is waiting you"));
-            notificationitems.add(new Notificationitem("check out our new suana"));
-            notificationitems.add(new Notificationitem("we have changed the pool schedule"));
+        setUpRecycle();
 
 
-        }
+    }
 
-        notificationAdapter = new NotificationAdapter(this, notificationitems);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAdapter.stopListening();
+    }
+
+    void setUpRecycle() {
+
+        collectionReference = firebaseFirestore.collection("notifications");
+        Query query = collectionReference.orderBy("stamp", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Notificationitem> options = new FirestoreRecyclerOptions.Builder<Notificationitem>().setQuery(query, Notificationitem.class).build();
+        firebaseAdapter = new Notification_Adpater_Firebase(options);
+        RecyclerView recyclerView = findViewById(R.id.recycleview_noti);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(notificationAdapter);
-        recyclerView.addOnItemTouchListener(
-                new RecyclerView.OnItemTouchListener() {
-                    @Override
-                    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                        return false;
-                    }
+        recyclerView.setAdapter(firebaseAdapter);
 
-                    @Override
-                    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
 
-                    }
-
-                    @Override
-                    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                    }
-                }
-
-        );
     }
 
 
