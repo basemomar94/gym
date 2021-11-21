@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".View_Notification"
+            android:exported="false"
+            android:parentActivityName=".Notifications" />
+        <activity
             android:name=".Plan"
             android:exported="false" />
         <activity
@@ -63,7 +67,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
