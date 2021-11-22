@@ -111,8 +111,8 @@ public class Dashboard extends AppCompatActivity {
         Qr = findViewById(R.id.Qr);
         offer = findViewById(R.id.offer);
         userID = firebaseAuth.getCurrentUser().getUid();
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        days_number = sharedPreferences.getInt("days", Integer.parseInt("0"));
+        //  SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        //   days_number = sharedPreferences.getInt("days", Integer.parseInt("0"));
         //Display message
         System.out.println(message);
 
@@ -224,7 +224,9 @@ public class Dashboard extends AppCompatActivity {
     void gotoPlanDetails() {
         Intent intent = new Intent(Dashboard.this, Subscribtion_info.class);
         intent.putExtra("remaining", senddays);
+        System.out.println(senddays + "send");
         intent.putExtra("userid", userID);
+        intent.putExtra("days", days_number);
         startActivity(intent);
 
     }
@@ -325,6 +327,7 @@ public class Dashboard extends AppCompatActivity {
                 String sub = value.getString("date");
 
                 Double daysofsub = value.getDouble("daysnumber");
+                days_number = daysofsub.intValue();
                 Boolean activation = value.getBoolean("activation");
 
                 if (activation == true) {

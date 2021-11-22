@@ -18,6 +18,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class Subscribtion_info extends AppCompatActivity {
 
     ProgressBar linearprogress;
@@ -27,14 +33,17 @@ public class Subscribtion_info extends AppCompatActivity {
     String userid;
     FirebaseFirestore firebaseFirestore;
     ActivitySubscribtionInfoBinding binding;
-    Double daysnumber = 90.0;
+    int daysnumber;
+    Double remaing;
+    String firebase_date;
 
 
     @Override
     protected void onStart() {
         super.onStart();
+        getting_data();
 
-        System.out.println(userid);
+
     }
 
     @Override
@@ -48,23 +57,31 @@ public class Subscribtion_info extends AppCompatActivity {
         actionBar.setTitle("Plan Details");
         linearprogress = findViewById(R.id.linearprogressBar);
         CircularprogessBar = findViewById(R.id.CircularprogessBar);
-        getting_data();
+
         updatelinearProgress();
 
 
     }
 
     void updatelinearProgress() {
+        progress = getIntent().getIntExtra("remaining", 100);
+        daysnumber = getIntent().getIntExtra("days", 1);
+
+        System.out.println(progress);
+        System.out.println(daysnumber);
         linearprogress.setProgress(progress);
-        linearprogress.setMax(daysnumber.intValue());
+        linearprogress.setMax(daysnumber);
         CircularprogessBar.setProgress(progress);
-        CircularprogessBar.setMax(daysnumber.intValue());
+        CircularprogessBar.setMax(daysnumber);
+        binding.daysDetails.setText(progress + "/" + daysnumber);
 
     }
 
     void getting_data() {
         Intent intent = getIntent();
-        progress = intent.getIntExtra("remaining", 0);
+
+
+        System.out.println(progress + "remain");
         userid = intent.getStringExtra("userid");
         try {
             DocumentReference documentReference = firebaseFirestore.collection("users").document(userid);
@@ -73,7 +90,9 @@ public class Subscribtion_info extends AppCompatActivity {
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                     binding.fees.setText("Renewal fees " + value.getDouble("money").toString() + " EGP");
-                    daysnumber = value.getDouble("daysnumber");
+
+                    System.out.println();
+
 
                 }
             });
@@ -85,6 +104,10 @@ public class Subscribtion_info extends AppCompatActivity {
     }
 
     public void test(View view) {
-        System.out.println(progress);
+
+    }
+
+    public void check(View view) {
+        getting_data();
     }
 }

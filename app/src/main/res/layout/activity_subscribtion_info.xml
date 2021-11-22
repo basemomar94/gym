@@ -56,7 +56,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/days_details"
                     style="@style/button_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,7 +78,8 @@
                     android:layout_margin="8dp"
                     android:text="renewal date 25/10/2021"
                     android:textColor="@color/blue"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/fees"
@@ -138,6 +139,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
+                    android:onClick="check"
                     android:text="Recharge"
                     android:textColor="@color/blue" />
             </LinearLayout>
