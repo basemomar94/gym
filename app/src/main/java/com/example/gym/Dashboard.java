@@ -325,9 +325,9 @@ public class Dashboard extends AppCompatActivity {
                 String sub = value.getString("date");
 
                 Double daysofsub = value.getDouble("daysnumber");
-                String activation = value.getString("activation");
+                Boolean activation = value.getBoolean("activation");
 
-                if (!activation.equals("False")) {
+                if (activation == true) {
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     try {

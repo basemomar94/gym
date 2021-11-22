@@ -107,7 +107,7 @@
                 app:passwordToggleEnabled="true" />
 
             <EditText
-                android:id="@+id/editTextTextPassword2"
+                android:id="@+id/password2_signup"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"

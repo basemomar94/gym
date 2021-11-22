@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -72,6 +73,7 @@ public class Signup extends AppCompatActivity {
     Button signup;
     String subscribtion_Date;
     ActivitySignupBinding binding;
+    boolean active = false;
 
 
     @Override
@@ -265,6 +267,7 @@ public class Signup extends AppCompatActivity {
     }
 
     public void test(View view) {
+        userID = "dadadadd";
         gettingToken();
         subscribe_noti();
     }
@@ -304,6 +307,10 @@ public class Signup extends AppCompatActivity {
             password.setError("Please enter your password");
 
 
+        }
+        if (!binding.password2Signup.getText().toString().equals(binding.passwordSignup.getText().toString())) {
+            System.out.println(binding.password2Signup.getText().toString() + "=" + binding.passwordSignup.getText().toString());
+            binding.password2Signup.setError("Please check password confirmation");
         }
         if (fnmae.getText().toString().trim().length() == 0) {
             fnmae.setError("please enter your first name");
@@ -351,7 +358,8 @@ public class Signup extends AppCompatActivity {
                             users.put("age", birthdatte);
                             users.put("daysnumber", daysofsub);
                             users.put("date", subscribtion_Date);
-                            users.put("activation", "False");
+                            users.put("activation", active);
+                            users.put("stamp", FieldValue.serverTimestamp());
                             documentReference.set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

@@ -52,6 +52,8 @@ public class Login extends AppCompatActivity {
                         loading.setVisibility(View.INVISIBLE);
                     } else {
                         Toast.makeText(Login.this, task.getException().getMessage().toString(), Toast.LENGTH_LONG).show();
+                        loading.setVisibility(View.INVISIBLE);
+
                     }
 
                 }
