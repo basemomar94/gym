@@ -6,20 +6,12 @@
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
     android:orientation="vertical"
-    tools:context=".Profile">
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="match_parent"
-        android:layout_height="78dp"
-        android:onClick="test"
-        app:srcCompat="@drawable/gg" />
+    tools:context="com.user.gym.Profile">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_marginTop="5dp"
         android:elevation="5dp"
         app:cardCornerRadius="5dp">
 
@@ -27,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".Profile">
+            tools:context="com.user.gym.Profile">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,23 +118,6 @@
 
                     <View
                         android:id="@+id/view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@color/yellow" />
-
-                    <TextView
-                        android:id="@+id/gender_prof"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:drawableLeft="@drawable/ic_baseline_emoji_people_24"
-                        android:text="Gender : male"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:id="@+id/view6"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginLeft="2dp"

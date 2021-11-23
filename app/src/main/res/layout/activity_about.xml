@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".About">
+    tools:context="com.user.gym.About">
 
     <ImageView
         android:id="@+id/imageView"
@@ -22,7 +22,7 @@
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        tools:context=".About">
+        tools:context="com.user.gym.About">
 
         <ScrollView
             android:layout_width="match_parent"

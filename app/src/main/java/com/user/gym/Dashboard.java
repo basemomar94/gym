@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -17,12 +16,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gym.R;
 import com.example.gym.databinding.ActivityDashboardBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,19 +31,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.zxing.WriterException;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import androidmads.library.qrgenearator.QRGContents;
@@ -98,9 +91,9 @@ public class Dashboard extends AppCompatActivity {
         hour = calendar.get(Calendar.HOUR);
         min = calendar.get(Calendar.MINUTE);
         Profile_photo = findViewById(R.id.profile_photo);
-        date = findViewById(R.id.todaydate);
+
         String today_Date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        date.setText(today_Date);
+
 
 
 //
@@ -126,7 +119,7 @@ public class Dashboard extends AppCompatActivity {
                 binding.viewId.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        copytoClip(binding.viewId);
+                        //   copytoClip(binding.viewId);
 
 
                     }
@@ -327,6 +320,9 @@ public class Dashboard extends AppCompatActivity {
                 String sub = value.getString("date");
 
                 Double daysofsub = value.getDouble("daysnumber");
+                if (daysofsub == null) {
+                    daysofsub = 30.0;
+                }
                 days_number = daysofsub.intValue();
                 Boolean activation = value.getBoolean("activation");
 
@@ -350,6 +346,7 @@ public class Dashboard extends AppCompatActivity {
                             remaining.setText(actual_remaining + " days");
                         } else {
                             remaining.setText("renew your subscribtion");
+                            documentReference.update("activation", false);
                         }
 
 
@@ -368,15 +365,17 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
-    void copytoClip(TextView textView) {
-        ClipboardManager _clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-        _clipboard.setText(textView.getText());
-        Toast.makeText(Dashboard.this, textView.getText(), Toast.LENGTH_LONG).show();
+    void copytoClip(String txt) {
 
+        ClipboardManager _clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
+        _clipboard.setText(txt);
+        Toast.makeText(Dashboard.this, txt, Toast.LENGTH_LONG).show();
 
     }
 
     public void showid(View view) {
-        binding.viewId.setVisibility(View.VISIBLE);
+        copytoClip(userID);
+
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 public class Notificationitem {
     String title;

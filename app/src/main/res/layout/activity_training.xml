@@ -9,7 +9,7 @@
     android:layout_margin="10dp"
     android:columnCount="2"
 
-    tools:context=".Training">
+    tools:context="com.user.gym.Training">
 
     <ImageView
         android:id="@+id/set1"

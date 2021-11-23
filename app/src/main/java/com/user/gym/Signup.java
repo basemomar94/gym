@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gym.R;
 import com.example.gym.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -216,6 +217,7 @@ public class Signup extends AppCompatActivity {
             profileimage.setImageURI(image);
             binding.uploadphoto.setVisibility(View.INVISIBLE);
             binding.profileimage.setVisibility(View.VISIBLE);
+            binding.uploadPhoto.setVisibility(View.GONE);
 
         } else {
             System.out.println("FAIL");
@@ -360,6 +362,7 @@ public class Signup extends AppCompatActivity {
                             users.put("date", subscribtion_Date);
                             users.put("activation", active);
                             users.put("stamp", FieldValue.serverTimestamp());
+                            users.put("userid", userID);
                             documentReference.set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

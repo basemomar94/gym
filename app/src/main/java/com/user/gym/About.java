@@ -1,9 +1,11 @@
-package com.example.gym;
+package com.user.gym;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.gym.R;
 
 public class About extends AppCompatActivity {
 

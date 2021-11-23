@@ -8,7 +8,7 @@
     android:orientation="vertical"
 
 
-    tools:context=".Splash">
+    tools:context="com.user.gym.Splash">
 
 
     <ImageView
@@ -20,13 +20,4 @@
         android:layout_marginBottom="20dp"
         app:srcCompat="@drawable/gg" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/data">
-
-
-    </com.airbnb.lottie.LottieAnimationView>
 </LinearLayout>

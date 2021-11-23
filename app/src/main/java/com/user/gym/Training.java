@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.gym.R;
 
 public class Training extends AppCompatActivity {
 

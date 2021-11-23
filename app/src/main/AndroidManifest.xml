@@ -16,50 +16,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
-            android:name=".View_Notification"
+            android:name="com.user.gym.View_Notification"
             android:exported="false"
-            android:parentActivityName=".Notifications" />
+            android:parentActivityName="com.user.gym.Notifications" />
         <activity
-            android:name=".Plan"
+            android:name="com.user.gym.Plan"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name="com.user.gym.Profile"
             android:exported="true"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName="com.user.gym.Dashboard" />
         <activity
-            android:name=".Subscribtion_info"
+            android:name="com.user.gym.Subscribtion_info"
             android:exported="true"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName="com.user.gym.Dashboard" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.user.gym.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".TrainingView"
+            android:name="com.user.gym.TrainingView"
             android:exported="true"
-            android:parentActivityName=".Training" />
+            android:parentActivityName="com.user.gym.Training" />
         <activity
-            android:name=".Training"
+            android:name="com.user.gym.Training"
             android:exported="true"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName="com.user.gym.Dashboard" />
         <activity
-            android:name=".Signup"
+            android:name="com.user.gym.Signup"
             android:exported="true" />
         <activity
-            android:name=".Notifications"
+            android:name="com.user.gym.Notifications"
             android:exported="true"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName="com.user.gym.Dashboard" />
         <activity
-            android:name=".About"
+            android:name="com.user.gym.About"
             android:exported="true"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName="com.user.gym.Dashboard" />
         <activity
-            android:name=".Dashboard"
+            android:name="com.user.gym.Dashboard"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name="com.user.gym.Login"
             android:exported="true" />
         <activity
-            android:name=".Splash"
+            android:name="com.user.gym.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

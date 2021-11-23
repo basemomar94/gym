@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
 
 import com.example.gym.databinding.ActivitySplashBinding;
 
@@ -25,7 +24,7 @@ public class Splash extends AppCompatActivity {
         setContentView(binding.getRoot());
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        binding.logoA.animate().translationY(500F).setDuration(1000);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -34,7 +33,7 @@ public class Splash extends AppCompatActivity {
 
 
             }
-        }, splash_duration * 1000);
+        }, splash_duration * 800);
 
 
     }

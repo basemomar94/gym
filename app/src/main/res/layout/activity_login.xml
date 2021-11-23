@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context="com.user.gym.Login">
 
 
     <LinearLayout
@@ -26,7 +26,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="false">
 
             <androidx.appcompat.widget.AppCompatEditText
 

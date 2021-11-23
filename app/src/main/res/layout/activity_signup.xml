@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    tools:context=".Signup">
+    tools:context="com.user.gym.Signup">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,6 +51,13 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/upload_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload your photo"
+                android:textAlignment="center" />
 
             <EditText
                 android:id="@+id/firstname_ET"
@@ -163,7 +170,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="152dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
 
                     <LinearLayout

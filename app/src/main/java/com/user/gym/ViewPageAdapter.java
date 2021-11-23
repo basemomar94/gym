@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.user.gym;
 
 import android.content.Context;
 import android.view.View;
