@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.gym.databinding.ActivitySplashBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Splash extends AppCompatActivity {
 

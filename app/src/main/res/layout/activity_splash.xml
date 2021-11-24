@@ -4,20 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash"
+    android:layout_margin="8dp"
+
+
     android:orientation="vertical"
-
-
     tools:context="com.user.gym.Splash">
 
-
     <ImageView
-        android:id="@+id/logo_a"
-        android:layout_width="198dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
         app:srcCompat="@drawable/gg" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:text="User App"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 </LinearLayout>

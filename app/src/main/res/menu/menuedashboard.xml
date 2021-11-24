@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:icon="@drawable/ic_baseline_message_24"
+        android:title="inbox"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/notifications"
         android:icon="@drawable/notifications"
         android:title="Item"
