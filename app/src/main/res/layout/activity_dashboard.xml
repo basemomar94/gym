@@ -141,7 +141,7 @@
                             tools:progress="50" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/plan_details"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:onClick="plandetails"

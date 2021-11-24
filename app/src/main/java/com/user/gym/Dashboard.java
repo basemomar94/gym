@@ -347,6 +347,7 @@ public class Dashboard extends AppCompatActivity {
                         } else {
                             remaining.setText("renew your subscribtion");
                             documentReference.update("activation", false);
+
                         }
 
 
@@ -358,6 +359,8 @@ public class Dashboard extends AppCompatActivity {
                     progressBar.setVisibility(View.INVISIBLE);
                     remaining.setText("you need to activate your account");
                     remaining.setEnabled(false);
+                    binding.planDetails.setEnabled(false);
+                    binding.planDetails.setAlpha(1);
                 }
 
 
