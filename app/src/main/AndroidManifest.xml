@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".Phone_vertification"
+            android:exported="false" />
+        <activity
             android:name="com.user.gym.View_Notification"
             android:exported="false"
             android:parentActivityName="com.user.gym.Notifications" />
