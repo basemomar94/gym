@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym">
         <activity
+            android:name=".Private_message"
+            android:exported="false" />
+        <activity
             android:name=".Phone_vertification"
             android:exported="false" />
         <activity

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:icon="@drawable/ic_baseline_message_24"
-        android:title="inbox"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/notifications"
         android:icon="@drawable/notifications"
@@ -15,8 +12,12 @@
     <item
         android:id="@+id/about"
         android:title="about" />
+    <item
+        android:id="@+id/contact"
+        android:title="Contact" />
 
     <item
         android:id="@+id/logout"
-        android:title="log out" />
+        android:title="Sign out" />
+
 </menu>
