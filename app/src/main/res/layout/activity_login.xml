@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            android:background="@color/yellow"
+            android:background="@drawable/button_background"
             android:onClick="loginlogin"
             android:text="@string/login"
             android:textColor="@color/blue" />
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="8dp"
-                android:background="@color/yellow"
+                android:background="@drawable/button_background"
                 android:onClick="creatnew"
                 android:text="@string/creat"
                 android:textColor="#0288D1" />

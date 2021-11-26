@@ -30,7 +30,7 @@
 
             style="@style/button_style"
             android:layout_margin="8dp"
-            android:background="@color/yellow"
+            android:background="@drawable/button_background"
             android:onClick="login"
             android:text="@string/login"
             android:textColor="#0288D1" />
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            android:background="@color/yellow"
+            android:background="@drawable/button_background"
             android:onClick="signup"
             android:text="@string/signup"
             android:textColor="#0288D1" />

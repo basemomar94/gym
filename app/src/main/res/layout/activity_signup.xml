@@ -253,6 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_margin="8dp"
+                android:background="@drawable/button_background"
                 android:onClick="signupp"
                 android:text="@string/signup"
                 android:textColor="@color/blue"
