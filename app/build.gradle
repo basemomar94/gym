@@ -4,10 +4,24 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\gym\\gym_bassem2022.jks')
+            storePassword 'bassem2022'
+            keyPassword 'bassem2022'
+            keyAlias 'key0'
+        }
+        productionSigning {
+            storeFile file("D:\\gym\\gym_bassem2022.jks")
+            keyAlias 'key0'
+            storePassword 'bassem2022'
+            keyPassword 'bassem2022'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.gym"
+        applicationId "com.bassem.gym"
         minSdk 22
         targetSdk 31
         versionCode 1

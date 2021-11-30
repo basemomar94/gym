@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.bassem.gym;
 
 import org.junit.Test;
 

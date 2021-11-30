@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
     android:orientation="vertical"
-    tools:context="com.user.gym.About">
+    tools:context=".About">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="620dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/gg" />
+        app:srcCompat="@drawable/logogyyyy" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +25,7 @@
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        tools:context="com.user.gym.About">
+        tools:context=".About">
 
         <ScrollView
             android:layout_width="match_parent"

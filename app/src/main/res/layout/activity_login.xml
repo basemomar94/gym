@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical"
-    tools:context="com.user.gym.Login">
+    tools:context=".Login">
 
 
     <LinearLayout

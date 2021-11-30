@@ -7,7 +7,7 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     android:padding="2dp"
-    tools:context="com.user.gym.Subscribtion_info">
+    tools:context=".Subscribtion_info">
 
     <TextView
         android:id="@+id/textView10"
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="renewal fees 350 EGP"
-                    android:textColor="@color/blue"
+                    android:textColor="#0277BD"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

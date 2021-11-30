@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
     android:orientation="vertical"
-    tools:context="com.user.gym.Profile">
+    tools:context=".Profile">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.user.gym.Profile">
+            tools:context=".Profile">
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -8,14 +8,14 @@
 
 
     android:orientation="vertical"
-    tools:context="com.user.gym.Splash">
+    tools:context=".Splash">
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="275dp"
         android:layout_margin="8dp"
-        app:srcCompat="@drawable/gg" />
+        app:srcCompat="@drawable/logogyyyy" />
 
     <TextView
         android:id="@+id/textView4"
