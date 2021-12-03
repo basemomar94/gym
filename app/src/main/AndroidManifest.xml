@@ -42,9 +42,6 @@
             android:exported="true"
             android:parentActivityName=".Dashboard" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity
             android:name=".TrainingView"
             android:exported="true"
             android:parentActivityName=".Training" />
