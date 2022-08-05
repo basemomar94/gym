@@ -138,7 +138,7 @@
                             android:onClick="plandetails"
                             android:progressDrawable="@drawable/circle"
                             tools:ignore="SpeakableTextPresentCheck"
-                            tools:progress="50" />
+                            tools:progress="80" />
 
                         <Button
                             android:id="@+id/plan_details"
